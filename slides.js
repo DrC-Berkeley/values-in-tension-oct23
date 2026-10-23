@@ -58,12 +58,9 @@ window.POLLS = {
    No percentages, quotations, or sample responses belong here: the group's own results are shown live from Google Forms. */
 window.DIALOGUE = {
   lead: "Let\u2019s look at our poll results together.",
-  steps: [
-    { h: "Results", d: "We\u2019ll look at the summary charts from the poll. They show the shape of the whole group, not any one person." },
-    { h: "Noticing", prompts: ["What patterns or differences do you notice?", "What surprised you or makes you curious?"] },
-    { h: "Dialogue", prompts: ["Who would like to explain what shaped their choice?", "If you chose Other, would you like to share your perspective?"],
-      note: "Sharing is always voluntary. Nothing on screen names anyone or shows written answers." }
-  ],
+  noticing: ["What patterns or differences do you notice?", "What surprised you or makes you curious?"],
+  dialogue: ["Who would like to explain what shaped their choice?", "If you chose Other, would you like to share your perspective?"],
+  note: "Sharing is always voluntary. Nothing on screen names anyone or shows written answers.",
   close: "Respond to one another, and reconsider what these charts can and cannot tell us."
 };
 
@@ -199,22 +196,17 @@ window.SLIDES = [
              { label: "Profile: Richard Denniss, The Australia Institute", href: "https://australiainstitute.org.au/expert/richard-denniss/page/2/" } ],
     verify: "Speaker and role are confirmed by The Point article (co-CEO of The Australia Institute; Joint Select Committee on Artificial Intelligence; 22 Oct 2026). The profile page returned an access error to my automated fetch, so the title is not independently re-confirmed there. The article does not give a separate hearing date. The 'Show the clip' button loads LinkedIn's official embed of a public post by another LinkedIn user (Amy L.), whose caption attributes a quote to a different source; the embed also cannot be confirmed to match the original parliamentary recording. It never autoplays. Check captions in LinkedIn's player before class. If you have the original parliamentary video or a transcript, supply it." } },
 
-{ id: "3-2", section: 3, kind: "motion", theme: "light", rhythm: 1,
-  kicker: "Movement 3 · A thought experiment, not a prediction",
-  title: "Who decides?",
+{ id: "3-2", section: 3, kind: "thought", theme: "light", rhythm: 1,
+  kicker: "A thought experiment",
+  title: "When better answers become dependence",
   blocks: [
-    { t: "motion", summary: "Context for the thought experiment", context: [
-      "<strong>What happens when we stop practicing the capabilities we delegate?</strong>",
-      "This is a hypothetical scenario, not a prediction.",
-      "Imagine a future in which AI performs much of the intellectual work people once developed expertise through doing.",
-      "Research, analysis, diagnosis, design, and decision-making increasingly become automated.",
-      "The results may be faster and more accurate.",
-      "But what happens to our ability to question those results if we no longer develop the capabilities required to evaluate them?",
-      "<strong>Greater capability does not automatically confer moral authority.</strong>",
-      "Is intelligence best understood as a hierarchy, or might different forms of intelligence have distinct capabilities, limitations, and ways of relating to the world?" ] }
+    { t: "p", text: "Imagine an AI system that routinely gives more accurate answers than the people using it. They consult it more often and practice making independent judgments less often." },
+    { t: "p", text: "People still have the final say. But over time, they may become less able to evaluate or challenge the system\u2019s recommendations." },
+    { t: "q", label: "Key distinction", text: "Greater capability does not automatically confer moral authority." },
+    { t: "q", label: "Question", text: "What would people need to keep practicing for their control to remain meaningful?" }
   ],
-  instructor: { say: "The question for this slide: \u201cWhat happens when we stop practicing the capabilities we delegate?\u201d Press Play and narrate, or use the three scene buttons to stop and elaborate. The animation freezes on \u201cWho decides?\u201d; it never advances the slide. Keep this a question, not a forecast: do not present AI superintelligence or human extinction as inevitable. Sound is optional and starts off.",
-    verify: "This is an original illustration of the thought experiment from your AI-dependency conversation. It contains no quotations and no personal conversation details. The expandable context uses only the approved wording. Sound is generated in the browser (no recordings)." } },
+  instructor: { say: "This is a hypothetical, not a forecast. Do not present AI superintelligence or human extinction as inevitable. Elaborate in your own words; no conversation quotations appear on the slide. Possible follow-up: capability versus legitimate authority, and who decides.",
+    verify: "Broader context kept for narration: Imagine a future in which AI performs much of the intellectual work people once developed expertise through doing. Research, analysis, diagnosis, design, and decision-making increasingly become automated. The results may be faster and more accurate. But what happens to our ability to question those results if we no longer develop the capabilities required to evaluate them? Is intelligence best understood as a hierarchy, or might different forms of intelligence have distinct capabilities, limitations, and ways of relating to the world? The slide has no figure, no animation and no sound." } },
 
 { id: "3-3", section: 3, kind: "poll", theme: "light", rhythm: 2, poll: 3,
   kicker: "Movement 3 · Poll",
@@ -229,7 +221,7 @@ window.SLIDES = [
     poll: 3, transition: "If our capabilities and identities are shaped partly by what we repeatedly do, how can we become more intentional about those practices?" } },
 
 /* ---------------- SECTION 4 ---------------- */
-{ id: "4-1", section: 4, kind: "book", theme: "light", rhythm: 0,
+{ id: "4-1", section: 4, kind: "book", theme: "light", rhythm: 0, layout: "twocol",
   kicker: "Movement 4 · 10:00–10:15",
   title: "What are we actually optimizing for?",
   blocks: [
@@ -246,7 +238,7 @@ window.SLIDES = [
   ],
   instructor: { verify: "Cover image is the supplied actual cover (Wiley is printed on it). The 2013 publication year came from search results only. The book link goes to an O\u2019Reilly library record found by search; swap in your preferred link in LINKS.book." } },
 
-{ id: "4-2", section: 4, kind: "compare", theme: "light", rhythm: 1,
+{ id: "4-2", section: 4, kind: "compare", theme: "light", rhythm: 1, layout: "twocol",
   kicker: "Movement 4 · From practices to identity",
   title: "How do our everyday choices shape who we're becoming?",
   blocks: [

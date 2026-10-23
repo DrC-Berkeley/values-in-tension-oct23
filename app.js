@@ -4,7 +4,7 @@
   const S = window.SLIDES, SEC = window.SECTIONS, L = window.LINKS, P = window.POLLS, R = window.RHYTHM;
   const $ = (s, r) => (r || document).querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const NOART = ["excerpt", "discuss", "cues", "book", "compare", "access", "motion", "assignment", "account", "thought"]; // reading, results, and content-heavy slides carry no campus art
+  const NOART = ["excerpt", "discuss", "cues", "book", "compare", "access", "motion", "assignment", "account", "thought", "poll"]; // reading, results, and content-heavy slides carry no campus art
   const idx = (id) => S.findIndex((s) => s.id === id);
   const ext = (href, label) => `<a class="ext" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}<span class="sr"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>`;
   const linkOf = (k) => L[k] || k;
@@ -23,7 +23,7 @@
     list: (b) => `<ul class="prompts">${b.items.map((i) => `<li class="rv">${esc(i)}</li>`).join("")}</ul>`,
     transition: (b) => `<p class="transition rv"><span class="tlabel">Where this leads</span>${esc(b.text)}</p>`,
     terms: (b) => `<dl class="terms">${b.items.map((i) => `<div class="rv"><dt>${esc(i.h)}</dt><dd>${esc(i.d)}</dd></div>`).join("")}</dl>`,
-    compare: (b) => `<div class="compare">${b.items.map((i, n) => `<div class="rv"><span class="cn">${n + 1}</span><h3>${esc(i.h)}</h3><p>${esc(i.d)}</p></div>`).join("")}</div>`,
+    compare: (b) => `<div class="compare">${b.items.map((i, n) => `<div class="rv"><h3>${esc(i.h)}</h3><p>${esc(i.d)}</p></div>`).join("")}</div>`,
     links: (b) => `<p class="rv linkrow">${b.items.map((i) => ext(linkOf(i.href), esc(i.label))).join(" ")}</p>`,
     source: (b) => `<p class="source rv"><em>${esc(b.cite)}</em><br>${esc(b.by)}<br>${ext(linkOf(b.href), "Read the original article")}</p>`,
     article: (b) => `<article class="paper rv"><p class="paper-pub">${esc(b.pub)}</p><h2>${esc(b.title)}</h2><p class="paper-deck">${esc(b.deck)}</p>
@@ -33,25 +33,23 @@
     excerpt: (b) => `<figure class="excerpt rv"><blockquote><p>${esc(b.text)}</p></blockquote>
       <figcaption><strong>${esc(b.by)}</strong>, <em>${esc(b.cite)}</em><br>${esc(b.pub)}<br>${ext(linkOf(b.href), "Read the original article")}</figcaption></figure>
       <section class="ask rv" aria-label="Discussion questions"><p class="ask-h">Questions for us</p><ul>${b.questions.map((q) => `<li>${esc(q)}</li>`).join("")}</ul></section>`,
-    dialogue: () => { const D = window.DIALOGUE; return `<p class="lead rv">${esc(D.lead)}</p>
-      <ol class="dsteps">${D.steps.map((st, i) => `<li class="rv"><span class="cn">${i + 1}</span><h2>${esc(st.h)}</h2>
-        ${st.d ? `<p>${esc(st.d)}</p>` : ""}${st.prompts ? `<ul>${st.prompts.map((q) => `<li>${esc(q)}</li>`).join("")}</ul>` : ""}
-        ${st.note ? `<p class="dnote">${esc(st.note)}</p>` : ""}</li>`).join("")}</ol>
-      <div class="keyq rv"><p>${esc(D.close)}</p></div>`; },
+    dialogue: () => { const D = window.DIALOGUE; const list = (q) => `<ul>${q.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`; return `<p class="lead rv dlead">${esc(D.lead)}</p>
+      <div class="dgrid"><section class="dcol rv"><h2>Noticing</h2>${list(D.noticing)}</section>
+      <section class="dcol rv"><h2>Dialogue</h2>${list(D.dialogue)}</section></div>
+      <p class="dnote rv">${esc(D.note)}</p>`; },
     cues: (b) => `<ol class="cues">${b.items.map((i, n) => `<li class="rv"><span class="cn">${n + 1}</span><div><h2>${esc(i.h)}</h2><p>${esc(i.d)}</p></div></li>`).join("")}</ol>`,
     event: (b) => { const src = (window.ASSET_DIR || "") + b.flyerSrc; return `<section class="event rv" aria-label="Upcoming campus event"><p class="eyebrow">A real campus conversation, separate from the office-hours account</p>
       <div class="event-grid"><a class="event-img" href="${esc(src)}" target="_blank" rel="noopener noreferrer"><img src="${esc(src)}" width="1545" height="1999" loading="lazy" alt="${esc(b.alt)}"><span>Open the flyer full size<span class="sr"> (opens in a new tab)</span> ↗</span></a>
       <div class="event-info"><h3>${esc(b.title)}</h3><p class="when">${esc(b.when)}</p><p>${esc(b.host)}</p><p class="check">${esc(b.check)}</p>
       <p class="linkrow">${b.links.map((l) => ext(linkOf(l.href), esc(l.label))).join(" ")}</p>
       <p class="small">RSVPs happen on the event's own links. We don't collect them here.</p></div></div></section>`; },
-    motion: (b) => window.MotionDemo.html(b),
+    states: (b) => `<ol class="states">${b.items.map((i) => `<li class="rv"><h2>${esc(i.h)}</h2><p>${esc(i.d)}</p></li>`).join("")}</ol>`,
     explore: (b) => `<p class="explore rv">${esc(b.label)} ${ext(linkOf(b.href), esc(b.link))}</p>`,
     flyer: (b) => `<div class="flyer rv"><div class="flyer-img">${b.flyerSrc ? `<img src="${esc(b.flyerSrc)}" alt="Flyer for Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning, November 2, 12 to 2 PM, Student Center">`
         : `<span class="placeholder">[ASSET NEEDED: Neuro Nexus event flyer image]</span>`}</div>
       <div><p class="eyebrow">Upcoming event</p><h3>Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning</h3>
       <p>November 2, 12–2 PM, Student Center</p><p class="small">Berkeley students and faculty are already discussing neurodivergent learning experiences.</p></div></div>`,
-    video: (b) => `<div class="video rv"><div class="video-head"><span class="video-play" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 20l18 12-18 12z" fill="currentColor"/></svg></span>
-      <div><p class="eyebrow">Video</p><h2 class="vtitle">${esc(b.title)}</h2><p class="vby">${esc(b.by)}</p></div></div>
+    video: (b) => `<div class="video rv"><div class="video-head"><div><p class="eyebrow">Video</p><h2 class="vtitle">${esc(b.title)}</h2><p class="vby">${esc(b.by)}</p></div></div>
       <div class="vactions"><button type="button" class="vbtn" data-embed="${esc(b.embed)}" aria-expanded="false">Show the clip on this page</button>
       ${ext(L.video, "Watch on LinkedIn")}</div><div class="vframe" hidden></div></div>`,
     book: (b) => { const src = (window.ASSET_DIR || "") + b.src; return `<div class="book rv"><img class="cover" src="${esc(src)}" alt="${esc(b.alt)}" loading="lazy">
@@ -65,7 +63,7 @@
 
   function pollBlock(p) {
     return `<div class="poll rv"><a class="poll-btn" href="${esc(p.respondent)}" target="_blank" rel="noopener noreferrer" aria-label="Cast Your Perspective: poll ${p.n} of 4, opens Google Forms in a new tab">
-        <span class="poll-ico">${window.ICONS[p.icon]}</span><span class="poll-t">Cast Your Perspective</span><span class="poll-s">Poll ${p.n} of 4 · opens in a new tab ↗</span></a>
+        <span class="poll-t">Cast Your Perspective</span><span class="poll-s">Poll ${p.n} of 4 · opens in a new tab ↗</span></a>
       <div class="poll-side"><p class="lead">There are no correct answers. Respond on your own, then come back to this tab.</p>
         <p class="small">After you submit, close the Google Form tab or switch back here. We'll look at the results together on the next slide.</p>
         <p class="instr-only small"><a class="ext" href="${esc(p.results)}" target="_blank" rel="noopener noreferrer">Instructor: open Form ${p.n} results<span class="sr"> (opens in a new tab)</span> ↗</a></p></div></div>`;
@@ -81,7 +79,7 @@
       ? `<a class="submit-btn" href="${esc(L.bcourses)}" target="_blank" rel="noopener noreferrer">Submit your attendance reflection in bCourses<span class="sr"> (opens in a new tab)</span> ↗</a>`
       : `<div class="submit-btn pending instr-only" role="note"><span class="placeholder">[bCourses submission link: final assignment URL pending]</span></div>`;
     return `<p class="lead rv">15 minutes. Individual reflection. Submit through bCourses.</p>
-      <div class="assign">${prompts.map((p, i) => `<section class="rv"><h2><span class="cn">${i + 1}</span>${esc(p[0])}</h2>${p[1].map((t) => `<p>${esc(t)}</p>`).join("")}</section>`).join("")}</div>
+      <div class="assign">${prompts.map((p, i) => `<section class="rv"><h2>${esc(p[0])}</h2>${p[1].map((t) => `<p>${esc(t)}</p>`).join("")}</section>`).join("")}</div>
       <div class="submit rv">${sub}<p class="small">Take the full 15 minutes. This slide stays here until you move on.</p></div>`;
   }
 
@@ -105,8 +103,8 @@
     const artKey = sec.art;
     const ins = s.instructor || {};
     const pollRes = ins.poll ? `<p><a class="ext" href="${esc(P[ins.poll].results)}" target="_blank" rel="noopener noreferrer">Open Form ${ins.poll} results ↗</a></p>` : "";
-    const noArt = NOART.includes(s.kind);
-    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
+    const noArt = NOART.includes(s.kind) || !!s.noArt;
+    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${s.layout ? " " + s.layout : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
       <div class="inner">
         ${s.kicker ? `<p class="kicker rv">${esc(s.kicker)}</p>` : ""}
         <h1 class="rv" id="slide-title" tabindex="-1">${esc(s.title)}</h1>
@@ -121,6 +119,7 @@
         ${ins.say ? `<p><strong>Say / do.</strong> ${esc(ins.say)}</p>` : ""}
         ${ins.move ? `<p>${esc(ins.move)}</p>` : ""}
         ${pollRes}
+        ${s.kind === "discuss" ? `<p><strong>Closing line to say.</strong> ${esc(window.DIALOGUE.close)}</p>` : ""}
         ${ins.transition ? `<p><strong>Transition to say next.</strong> ${esc(ins.transition)}</p>` : ""}
         ${ins.links ? ins.links.map((l) => `<p>${ext(linkOf(l.href), esc(l.label))}</p>`).join("") : ""}
         <p><strong>Timing.</strong> ${esc(sec.label)}: ${sec.time} (${sec.mins} min).</p>
@@ -140,15 +139,13 @@
   function render(first) {
     const s = S[cur], stage = $("#stage");
     const artKey = SEC[s.section].art;
-    const shown = !NOART.includes(s.kind);
+    const shown = !(NOART.includes(s.kind) || s.noArt);
     sameArt = !first && shown && prevArt === artKey;
     document.title = s.id === "0-1" ? "Values in Tension · Who Are We Becoming?" : `${s.title} · Values in Tension`;
-    if (window.MotionDemo) window.MotionDemo.cleanup();
     stage.innerHTML = slideHTML(s);
-    if (window.MotionDemo && s.kind === "motion") window.MotionDemo.mount(stage);
     prevArt = shown ? artKey : null; replay = false;
     stage.className = "stage anim";
-    stage.style.setProperty("--dx", dir * 28 + "px");
+    stage.style.setProperty("--dx", "0px");
     document.body.dataset.theme = s.theme;
     document.body.classList.toggle("instructor", instructor);
     stage.scrollTop = 0;

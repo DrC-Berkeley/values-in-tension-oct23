@@ -254,31 +254,7 @@ body.nomotion .poll-btn:hover,body.nomotion .poll-btn:focus-visible,body.nomotio
 .vframe iframe{width:100%;aspect-ratio:504/420;min-height:360px;border:0;background:#fff;display:block}
 .k-provocation .inner{max-width:800px}
 
-/* slide 3-2: coded motion graphic */
-.slide.k-motion{grid-template-columns:minmax(0,1fr)}.slide.k-motion .art-wrap{display:none}
-.k-motion .inner{max-width:960px}
-.mdemo{display:flex;flex-direction:column;gap:.8em}
-.mstage{border:3px solid var(--blue);border-radius:10px;overflow:hidden;background:var(--off);box-shadow:8px 8px 0 var(--pale)}
-.mstage svg{display:block;width:100%;height:auto}
-.m-bg{fill:#FAF8F2}.m-ground{stroke:var(--blue);stroke-width:4;stroke-linecap:round;fill:none}
-.m-rail{stroke:var(--blue);stroke-width:5;stroke-linecap:round;fill:none}.m-rung{stroke:var(--gold);stroke-width:7;stroke-linecap:round;fill:none}
-.m-person circle,.m-person path{fill:var(--blue);stroke:var(--navy);stroke-width:3}.m-person .m-arm{fill:none;stroke:var(--blue);stroke-width:9;stroke-linecap:round}
-.m-block rect{fill:var(--blue);stroke:var(--navy);stroke-width:3}.m-block .m-top{fill:var(--gold);stroke:none}
-.m-card rect{fill:var(--gold);stroke:var(--navy);stroke-width:3}.m-card path{stroke:var(--navy);stroke-width:3;stroke-linecap:round;fill:none}
-.m-seat path{fill:none;stroke:var(--gold);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 11}
-.m-q{font-family:var(--serif);font-weight:700;font-size:46px;fill:var(--blue)}
-.m-lab{font:700 15px var(--sans);fill:#000;letter-spacing:.06em;text-transform:uppercase}
-.mcap{margin:0;font-family:var(--serif);font-size:1.15em;min-height:1.5em}
-.mctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.mchap{display:inline-flex;gap:8px;flex-wrap:wrap}
-.mb{font:700 .85rem var(--sans);min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer}
-.mb.primary{background:var(--gold);border-color:var(--gold);color:var(--navy)}
-.mb[aria-current="step"],.mb[aria-pressed="true"]{background:var(--blue);color:#fff}
-.mb:hover{background:var(--pale)}
-.mscrub{flex:1 1 160px;min-width:140px}.mscrub input{width:100%;accent-color:var(--blue)}
-.mctx{background:#fff;border:2px solid var(--blue);border-radius:6px;padding:.4em 1em}
-.mctx summary{cursor:pointer;font-weight:700;color:var(--blue);min-height:44px;display:flex;align-items:center}
-.mctx-body p{margin:.5em 0;font-size:.95em}
+
 
 /* books and example typography (slides 4-1, 4-2) */
 .book{align-items:flex-start;max-width:760px;background:#fff;border:2px solid var(--blue);border-radius:8px;padding:1em}
@@ -377,3 +353,80 @@ img.cover{background:none}
 .k-discuss .inner{max-width:1040px;gap:1.3em}
 .k-discuss .dsteps{gap:1.4em}
 .k-cues .inner,.k-book .inner,.k-compare .inner,.k-thought .inner,.k-account .inner{max-width:900px}
+
+/* ===== poll launchers: no art, whole composition centered in the viewport ===== */
+.slide.k-poll.noart{align-items:center;justify-items:center;padding:clamp(12px,2.5vh,28px) clamp(16px,4vw,48px);grid-template-columns:minmax(0,1fr);column-gap:0}
+.k-poll .inner{max-width:920px;align-items:center;text-align:center;gap:clamp(10px,2vh,18px)}
+.k-poll .kicker{text-align:center}
+.k-poll h1{font-size:clamp(1.6rem,1.6vw+1.1rem,2.4rem);max-width:24em;text-wrap:balance}
+.k-poll .poll{justify-content:center;align-items:center;flex-wrap:wrap;gap:clamp(24px,5vw,64px);margin-top:clamp(4px,1.5vh,16px);width:100%}
+.k-poll .poll-btn{width:clamp(180px,17vw,230px)}
+.k-poll .poll-side{flex:0 1 340px;text-align:left;align-items:flex-start}
+.k-poll .rhythm{justify-content:center;margin-top:clamp(28px,5vh,52px)}
+@media (max-width:700px){.k-poll .poll-side{text-align:center;align-items:center}.k-poll .poll-btn{width:190px}}
+
+/* ===== SHARED LAYOUT REBUILD ===== */
+/* 1. one bounded, centered composition at any width (2560 included); header and nav align to the same edges */
+.slide{max-width:1480px;width:100%;margin-inline:auto}
+.top,.nav,.progress{padding-inline:max(clamp(16px,3vw,40px),calc((100vw - 1480px)/2 + 24px))}
+.slide.noart{grid-template-columns:minmax(0,1fr);justify-items:center;column-gap:0}
+.slide.noart .inner{margin-inline:auto}
+/* 2. poll launchers: centered, balanced two-column launch group, no icon */
+.k-poll .poll-btn{text-align:center}
+.k-poll .poll-t{font-size:1.35em}
+@media (max-width:700px){.k-poll h1{font-size:1.45rem}.k-poll .poll-btn{width:168px}.k-poll .rhythm{margin-top:22px}.k-poll .poll-side .small{font-size:.74em}}
+/* 5. testimony: raised two-column composition, video beside the text */
+.slide.split{align-items:start;padding-top:clamp(20px,6vh,64px)}
+.slide.split .inner{max-width:1180px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);column-gap:clamp(24px,4vw,56px);row-gap:.9em;align-items:start}
+.slide.split .inner>*{grid-column:1}
+.slide.split .inner>.video{grid-column:2;grid-row:1 / span 6}
+@media (max-width:900px){.slide.split .inner{grid-template-columns:minmax(0,1fr)}.slide.split .inner>.video{grid-column:1;grid-row:auto}}
+/* 6. artifacts and attendance centered as bounded groups */
+.k-assignment .kicker,.k-assignment h1,.k-assignment .lead,.k-access .kicker,.k-access h1{text-align:center}
+.k-assignment .submit{justify-content:center}
+.k-access .event,.k-book .book{margin-inline:auto}
+.k-access .inner>p,.k-access .inner>.linkrow{text-align:center}
+.k-access .terms{max-width:900px}
+/* 7. restrained closing art */
+.slide.big{--rail:clamp(220px,28vw,400px)}
+.k-reflect .art,.k-closing .art{width:74%}
+
+/* ===== results slides: centered heading, two equal compact columns, one small note ===== */
+.k-discuss .kicker,.k-discuss h1,.k-discuss .dlead{text-align:center}
+.k-discuss .inner{max-width:880px;align-items:stretch}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2em clamp(24px,4vw,56px);align-items:start;margin-top:.4em}
+.dcol{border-top:3px solid var(--blue);padding-top:.7em}
+.dcol h2{font-size:1.2em;margin:0 0 .5em;color:var(--blue)}
+.dcol ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:.55em;font-size:1em}
+.dcol li::marker{color:var(--blue)}
+.dnote{text-align:center;font-size:.82em;font-style:italic;margin-top:.6em!important}
+@media (max-width:700px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+/* ===== thought experiment: plain, bounded 900px group, no figure ===== */
+.k-thought .inner{max-width:900px;gap:1.1em}
+.k-thought .kicker,.k-thought h1{text-align:center}
+.k-thought .inner>p{font-size:1.12em;line-height:1.6;max-width:62ch}
+.k-thought .keyq p{font-size:1.4em}
+/* ===== two-column artifact layout (books): cover beside the concepts ===== */
+.slide.twocol .inner{display:grid;grid-template-columns:minmax(0,250px) minmax(0,1fr);column-gap:clamp(24px,4vw,56px);row-gap:.9em;align-items:start;max-width:1040px}
+.slide.twocol .inner>*{grid-column:2}
+.slide.twocol .inner>.kicker,.slide.twocol .inner>h1{grid-column:1 / -1;text-align:center}
+.slide.twocol .inner>.book{grid-column:1;grid-row:3 / span 8;flex-direction:column;align-items:center;text-align:center;background:none;border:0;padding:0}
+@media (max-width:800px){.slide.twocol .inner{grid-template-columns:minmax(0,1fr)}.slide.twocol .inner>*,.slide.twocol .inner>.book{grid-column:1;grid-row:auto}}
+/* ===== reduce chrome noise: chips and header buttons secondary; simple short fade, no lateral motion ===== */
+.rhythm li{font-size:.6rem;border-color:color-mix(in srgb,currentColor 25%,transparent);opacity:.8}
+.rhythm li.on{opacity:1}
+.tbtn{border-width:1px;font-weight:600;font-size:.8rem;opacity:.9}
+.tbtn[aria-pressed="true"]{opacity:1}
+.anim .rv{animation:fadeonly .35s ease-out both;animation-delay:calc(var(--d,0ms)/2)}
+@keyframes fadeonly{from{opacity:0}to{opacity:1}}
+.assign h2{font-size:1.15em}.assign p{font-size:.95em}.k-assignment .inner{max-width:1100px}
+/* fit tuning at 1440x900 */
+.slide.k-thought{padding-block:clamp(12px,2.5vh,28px)}
+.k-thought .inner{gap:.8em}.k-thought .inner>p{font-size:1.05em;line-height:1.5}.k-thought .keyq p{font-size:1.25em}
+.slide.k-assignment,.slide.k-book,.slide.k-compare{padding-block:clamp(10px,2vh,24px)}
+.k-assignment .inner{gap:.6em}.k-assignment h1{font-size:clamp(1.7rem,2vw+.9rem,2.6rem)}
+.assign section{padding:.8em}.assign p{margin:.3em 0;font-size:.9em;line-height:1.4}
+.slide.twocol .inner{row-gap:.6em;grid-template-columns:minmax(0,210px) minmax(0,1fr)}
+.twocol h1{font-size:clamp(1.7rem,2vw+.9rem,2.5rem)}
+.twocol img.cover{width:clamp(110px,10vw,150px)}
+.twocol .inner>*{font-size:.96em}
