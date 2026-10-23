@@ -27,11 +27,15 @@ window.SECTIONS = [
 window.LINKS = {
   article: "https://dailycollegian.com/2026/10/chatgpt-is-my-new-ta-and-im-scared/",
   rtl: "https://rtl.berkeley.edu/dyslexia-adhd-awareness-month",
+  nnStudent: "https://bit.ly/student-nn",
+  nnFaculty: "https://bit.ly/faculty-nn",
+  nnBoard: "https://slc.berkeley.edu/slpBoard",
   video: "https://lnkd.in/p/g5zt2Mke",
   participatory: "https://www.thelearningsociety.org/participatory-ai",
   book: "https://oreilly.com/library/view/the-12-week/9781118616420",
+  mindful: "https://a.co/d/02KHrLgZ",
   // Final bCourses assignment URL not yet supplied. Replace the string below, or leave null for the placeholder.
-  bcourses: null
+  bcourses: "https://bcourses.berkeley.edu/courses/1555498/assignments/9161814?module_item_id=17865467"
 };
 
 /* Respondent URLs (student-facing). Results links are instructor-only and shown in instructor mode. */
@@ -134,31 +138,39 @@ window.SLIDES = [
   kicker: "Movement 2 · 9:30–9:45 · A conversation that challenged my thinking",
   title: "Attention, Access & the Work of Learning",
   blocks: [
+    { t: "q", label: "Guiding inquiry for Movement 2",
+      text: "What explains the gap between what we want to become and what we practice today?",
+      sub: "Hold this question as you listen to the conversation, consider the learning conditions, and respond to the poll. Dialogue follows the poll, when we discuss the results together." },
     { t: "note", text: "From an office-hours conversation. Anonymized." },
     { t: "cues", items: [
       { h: "The future they\u2019re preparing for", d: "Law school. Sustained reading." },
       { h: "The request in the present", d: "Shorter, more direct materials." },
       { h: "What happened when we looked together", d: "The needed information was in the syllabus. Consulted twice." },
-      { h: "The turn toward responsibility", d: "Attention habits now. An expectation of adapting later." } ] },
-    { t: "q", text: "What explains the gap between what we want to become and what we practice today?" }
+      { h: "The turn toward responsibility", d: "Attention habits now. An expectation of adapting later." } ] }
   ],
-  instructor: { say: "Tell this in your own words; the slide is only a memory cue. The four labels are paraphrase cues, not quotations. Do not identify the student. Keep they/them/their.",
-    verify: "Exact quotations and key questions from the exchange are intentionally left out of student view: the raw transcript is not in this project. If you want any exact phrases shown, supply them and they can be added to this slide. [INSTRUCTOR DECISION NEEDED]" } },
+  instructor: { say: "Narrate the conversation first, in your own words; the cues are memory prompts, not quotations. The guiding question is held for the whole movement, not an immediate discussion stop. Do not identify the student. Keep they/them/their.",
+    verify: "The four cue labels are provisional paraphrases of the approved anonymized account. The raw transcript is not in this project, so no key moments or exact quotes are shown. Supply selected exact lines to add them. [INSTRUCTOR DECISION NEEDED]" } },
 
 { id: "2-2", section: 2, kind: "access", theme: "light", rhythm: 1,
   kicker: "Movement 2 · Access",
   title: "Who decides what meaningful learning requires?",
   blocks: [
     { t: "p", text: "October is Dyslexia Awareness Month and ADHD Awareness Month. Berkeley's Research, Teaching, & Learning Commons has a page on both." },
+    { t: "links", items: [ { label: "RTL: Dyslexia & ADHD Awareness Month", href: "rtl" } ] },
     { t: "terms", items: [
       { h: "Attention habits", d: "How technologies and daily practices shape where we direct attention." },
       { h: "Accessibility", d: "Whether learning environments enable meaningful participation for people with different needs." },
       { h: "Productive challenge", d: "The intellectual work that helps learners develop capabilities." },
       { h: "Shared responsibility", d: "How educators and learners negotiate the conditions for meaningful engagement." } ] },
-    { t: "flyer" },
-    { t: "links", items: [ { label: "RTL: Dyslexia & ADHD Awareness Month", href: "rtl" } ] }
+    { t: "event", flyerSrc: "neuro-nexus-flyer.png",
+      alt: "Event flyer for Neuro Nexus: A Student-Faculty Conversation on Neurodivergent Student Learning. November 2nd, 12 to 2 PM, Student Center as printed on the flyer. Hosted by the SLC Strategic Learning Program Neurodivergent Student Advisory Board. Student RSVP bit.ly/student-nn. Faculty RSVP bit.ly/faculty-nn. Learn more at slc.berkeley.edu/slpBoard.",
+      title: "Neuro Nexus: A Student-Faculty Conversation on Neurodivergent Student Learning",
+      when: "November 2 \u00b7 12\u20132 PM",
+      check: "Check the RSVP page for current location and event details.",
+      host: "Hosted by the SLC Strategic Learning Program Neurodivergent Student Advisory Board",
+      links: [ { label: "Student RSVP (Berkeley sign-in)", href: "nnStudent" }, { label: "Faculty RSVP (Berkeley sign-in)", href: "nnFaculty" }, { label: "About the Advisory Board", href: "nnBoard" } ] }
   ],
-  instructor: { verify: "The RTL page was checked on Oct 22; it does not mention the Neuro Nexus event. The event details shown come from the instructor-supplied flyer text in the brief. The flyer image itself was not in the project folder, so a placeholder is shown. Add the file as assets/neuro-nexus-flyer.png and set `flyerSrc` in this block." } },
+  instructor: { verify: "The flyer image is shown unchanged. It prints Student Center as the venue, but the student RSVP page (checked in your Berkeley-signed-in browser) lists 12\u20132 pm with an official program 12:30\u20132 pm, at 127 Dwinelle Hall. The slide therefore gives only the date and 12\u20132 PM and tells students to check the RSVP page for the current location; it does not state a venue. The RSVP link needs Berkeley sign-in (an outside account sees \u2018You need access\u2019). The Advisory Board link works. The RTL page was checked on Oct 22 and does not mention the event. RSVPs happen on the event's own links; this site collects none. The flyer file is about 3.5 MB; compress it if mobile load time matters." } },
 
 { id: "2-3", section: 2, kind: "poll", theme: "light", rhythm: 2, poll: 2,
   kicker: "Movement 2 · Poll",
@@ -178,23 +190,31 @@ window.SLIDES = [
   title: "What are we giving away?",
   blocks: [
     { t: "p", text: "Australian parliamentary testimony concerning AI and labor." },
-    { t: "p", text: "The speaker argues that economic incentives behind AI adoption are closely connected to replacing human labor. This is the speaker's argument, not an uncontested fact." },
-    { t: "video" }
+    { t: "p", text: "Dr Richard Denniss, co-CEO of The Australia Institute, argues that economic incentives behind AI adoption are closely connected to replacing human labor. This is his argument, not an uncontested fact." },
+    { t: "video", title: "Testimony on AI and Labor", by: "Dr Richard Denniss \u00b7 Australian parliamentary hearing",
+      embed: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7518565184244916225" }
   ],
-  instructor: { verify: "Speaker, committee, hearing date, and the original parliamentary recording are NOT verified. The LinkedIn page names no speaker. [INSTRUCTOR DECISION NEEDED]: supply the speaker's name and, if possible, the original parliamentary video, plus a transcript or captions. The link opens LinkedIn; a backup link is not yet supplied." } },
+  instructor: { say: "Present this as the speaker's argument. Ask students what they would want to check before agreeing or disagreeing.",
+    links: [ { label: "Source: The Point, 22 October 2026, reporting Dr Denniss's testimony to the Joint Select Committee on Artificial Intelligence", href: "https://thepoint.com.au/new/261022-not-an-unintended-consequence-mass-unemployment-is-the-ai-business-model" },
+             { label: "Profile: Richard Denniss, The Australia Institute", href: "https://australiainstitute.org.au/expert/richard-denniss/page/2/" } ],
+    verify: "Speaker and role are confirmed by The Point article (co-CEO of The Australia Institute; Joint Select Committee on Artificial Intelligence; 22 Oct 2026). The profile page returned an access error to my automated fetch, so the title is not independently re-confirmed there. The article does not give a separate hearing date. The 'Show the clip' button loads LinkedIn's official embed of a public post by another LinkedIn user (Amy L.), whose caption attributes a quote to a different source; the embed also cannot be confirmed to match the original parliamentary recording. It never autoplays. Check captions in LinkedIn's player before class. If you have the original parliamentary video or a transcript, supply it." } },
 
-{ id: "3-2", section: 3, kind: "thought", theme: "light", rhythm: 1,
-  kicker: "Movement 3 · A thought experiment",
-  title: "What happens when we stop practicing the capabilities we delegate?",
+{ id: "3-2", section: 3, kind: "motion", theme: "light", rhythm: 1,
+  kicker: "Movement 3 · A thought experiment, not a prediction",
+  title: "Who decides?",
   blocks: [
-    { t: "note", text: "A hypothetical scenario, not a prediction." },
-    { t: "p", text: "Imagine a future in which AI performs much of the intellectual work people once developed expertise through doing." },
-    { t: "p", text: "Research, analysis, diagnosis, design, and decision-making increasingly become automated." },
-    { t: "p", text: "The results may be faster and more accurate." },
-    { t: "p", text: "But what happens to our ability to question those results if we no longer develop the capabilities required to evaluate them?" },
-    { t: "q", text: "Greater capability does not automatically confer moral authority." },
-    { t: "p", text: "Is intelligence best understood as a hierarchy, or might different forms of intelligence have distinct capabilities, limitations, and ways of relating to the world?" }
-  ] },
+    { t: "motion", summary: "Context for the thought experiment", context: [
+      "<strong>What happens when we stop practicing the capabilities we delegate?</strong>",
+      "This is a hypothetical scenario, not a prediction.",
+      "Imagine a future in which AI performs much of the intellectual work people once developed expertise through doing.",
+      "Research, analysis, diagnosis, design, and decision-making increasingly become automated.",
+      "The results may be faster and more accurate.",
+      "But what happens to our ability to question those results if we no longer develop the capabilities required to evaluate them?",
+      "<strong>Greater capability does not automatically confer moral authority.</strong>",
+      "Is intelligence best understood as a hierarchy, or might different forms of intelligence have distinct capabilities, limitations, and ways of relating to the world?" ] }
+  ],
+  instructor: { say: "The question for this slide: \u201cWhat happens when we stop practicing the capabilities we delegate?\u201d Press Play and narrate, or use the three scene buttons to stop and elaborate. The animation freezes on \u201cWho decides?\u201d; it never advances the slide. Keep this a question, not a forecast: do not present AI superintelligence or human extinction as inevitable. Sound is optional and starts off.",
+    verify: "This is an original illustration of the thought experiment from your AI-dependency conversation. It contains no quotations and no personal conversation details. The expandable context uses only the approved wording. Sound is generated in the browser (no recordings)." } },
 
 { id: "3-3", section: 3, kind: "poll", theme: "light", rhythm: 2, poll: 3,
   kicker: "Movement 3 · Poll",
@@ -213,14 +233,18 @@ window.SLIDES = [
   kicker: "Movement 4 · 10:00–10:15",
   title: "What are we actually optimizing for?",
   blocks: [
-    { t: "book" },
+    { t: "book", src: "twelve-week-year.webp", alt: "Book cover: The 12 Week Year, Get more done in 12 weeks than others do in 12 months, by Brian P. Moran and Michael Lennington, Wiley.",
+      title: "The 12 Week Year", by: "Brian P. Moran and Michael Lennington", href: "book", label: "Book record" },
     { t: "p", text: "A desired outcome tells us what we hope to achieve. A recurring practice tells us what we're doing to make that outcome possible." },
     { t: "terms", items: [
       { h: "Lag measures", d: "Outcomes that show what happened." },
       { h: "Lead measures", d: "Actions we can intentionally practice that are likely to influence those outcomes." } ] },
-    { t: "p", text: "Example. Lag measure: deliver an excellent presentation. Lead measure: rehearse aloud regularly, seek feedback, and revise." },
+    { t: "example", items: [
+      { h: "Lag measure:", d: "Deliver an excellent presentation." },
+      { h: "Lead measure:", d: "Rehearse aloud regularly, seek feedback, and revise." } ] },
     { t: "q", text: "What happens when we achieve the outcome but haven't developed the capabilities or relationships we hoped would come with it?" }
-  ] },
+  ],
+  instructor: { verify: "Cover image is the supplied actual cover (Wiley is printed on it). The 2013 publication year came from search results only. The book link goes to an O\u2019Reilly library record found by search; swap in your preferred link in LINKS.book." } },
 
 { id: "4-2", section: 4, kind: "compare", theme: "light", rhythm: 1,
   kicker: "Movement 4 · From practices to identity",
@@ -228,12 +252,16 @@ window.SLIDES = [
   blocks: [
     { t: "p", text: "Mindful self-discipline is not simply about willpower, productivity, or forcing ourselves to comply." },
     { t: "p", text: "It involves developing awareness of the relationship between our intentions, choices, habits, and the person we want to become." },
+    { t: "book", src: "mindful-self-discipline.jpg", alt: "Book cover: Mindful Self-Discipline, Living with purpose and achieving your goals in a world of distractions, by Giovanni Dienstmann.",
+      title: "Mindful Self-Discipline", by: "Giovanni Dienstmann", href: "mindful", label: "Book on Amazon",
+      role: "The 12 Week Year connects outcomes to recurring actions. Mindful Self-Discipline brings awareness and intention, and helps us align what we do with our values and the person we are becoming." },
     { t: "compare", items: [
       { h: "The 12 Week Year", d: "What recurring actions will help produce the outcomes I want?" },
       { h: "Mindful self-discipline", d: "How do my actions express and reinforce the person I want to become?" },
       { h: "Disability justice and participatory design", d: "What conditions and supports make meaningful participation possible, and who helps shape those conditions?" } ] },
     { t: "note", text: "This is about intentional living and learning, not simply AI use." }
-  ] },
+  ],
+  instructor: { verify: "Book details (title, author, ASIN 0645138916) were read from the Amazon page behind your link and a second listing at acepremier.com; the cover is the observed product cover. The product description stresses mindfulness and awareness more than force or willpower. No quotations from the book are used." } },
 
 { id: "4-3", section: 4, kind: "poll", theme: "light", rhythm: 2, poll: 4,
   kicker: "Movement 4 · Poll",
@@ -243,7 +271,7 @@ window.SLIDES = [
 { id: "4-4", section: 4, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 4,
   kicker: "Movement 4 · Poll results",
   title: "What are we seeing together?",
-  blocks: [ { t: "dialogue" } ],
+  blocks: [ { t: "dialogue" }, { t: "explore", label: "Explore further:", link: "Participatory AI", href: "participatory" } ],
   instructor: { say: "Open Form 4, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
     poll: 4, transition: "We've examined what we expect, what we practice, what we delegate, and who we're becoming. Now it's time to turn the inquiry toward our own lives and the problems we're investigating.", links: [{ label: "Participatory AI, GILS (optional connection to shared decision-making, if the conversation goes there)", href: "participatory" }] } },
 

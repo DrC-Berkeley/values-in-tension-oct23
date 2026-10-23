@@ -45,29 +45,34 @@
     },
     /* Doe Library: pediment, colonnade, broad steps */
     library: {
-      label: "Illustration: a Doe Library style colonnade with a pediment, six columns and broad steps.",
+      label: "Illustration: the Doe Library facade in Berkeley blue and gold, with a triangular pediment, six columns and broad steps.",
       shapes: [
         ["M0 330 Q100 300 200 320 T400 310 V400 H0Z", "far", 0],
-        ["M40 400 V384 H360 V400Z", "tower", 1], ["M60 384 V368 H340 V384Z", "tower", 1],
-        ["M60 368 V176 H340 V368Z", "pale", 1], ["M48 176 H352 V156 H48Z", "tower", 1],
-        ["M60 156 L200 88 L340 156Z", "tower", 1]
+        ["M30 400 V386 H370 V400Z", "tower", 1], ["M48 386 V372 H352 V386Z", "tower", 1],
+        ["M70 372 V176 H330 V372Z", "wall", 1],
+        ["M44 176 H356 V154 H44Z", "tower", 1],
+        ["M56 154 L200 82 L344 154Z", "tower", 1]
       ],
-      details: `<path class="a-col" d="M96 368 V190 M138 368 V190 M180 368 V190 M222 368 V190 M264 368 V190 M306 368 V190"/>
-        <circle class="a-gold a-fade" cx="200" cy="130" r="12"/>`,
+      details: `<path class="a-iron" d="M92 146 L200 98 L308 146Z"/>
+        <circle class="a-gold a-fade" cx="200" cy="128" r="11"/>
+        <g class="a-colfill"><path d="M90 372 V196 H114 V372Z"/><path d="M132 372 V196 H156 V372Z"/><path d="M174 372 V196 H198 V372Z"/><path d="M202 372 V196 H226 V372Z"/><path d="M244 372 V196 H268 V372Z"/><path d="M286 372 V196 H310 V372Z"/></g>
+        <path class="a-capital" d="M86 196 H118 V186 H86Z M128 196 H160 V186 H128Z M170 196 H202 V186 H170Z M198 196 H230 V186 H198Z M240 196 H272 V186 H240Z M282 196 H314 V186 H282Z"/>`,
       sun: null, trail: "M0 424 H400"
     },
-    /* Memorial Stadium: tiered arcs with a branching path */
+    /* Memorial Stadium: an oval bowl with tiered seating, a field, and an arched outer wall */
     stadium: {
-      label: "Illustration: Memorial Stadium style stacked arcs above a pathway that branches into several routes.",
+      label: "Illustration: a Memorial Stadium style oval bowl in Berkeley blue and gold, with curved tiers of seating around a pale field and an arched outer wall.",
       shapes: [
         ["M0 330 Q100 300 200 320 T400 310 V400 H0Z", "far", 0],
-        ["M30 340 Q200 90 370 340Z", "pale", 1],
-        ["M70 340 Q200 150 330 340Z", "far2", 1],
-        ["M110 340 Q200 210 290 340Z", "tower", 1],
-        ["M20 340 H380 V366 H20Z", "tower", 1]
+        ["M20 240 V330 Q20 372 200 372 Q380 372 380 330 V240Z", "wall", 1],
+        ["M20 240 A180 66 0 1 0 380 240 A180 66 0 1 0 20 240Z", "tower", 1],
+        ["M50 240 A150 50 0 1 0 350 240 A150 50 0 1 0 50 240Z", "mid", 1],
+        ["M96 240 A104 32 0 1 0 304 240 A104 32 0 1 0 96 240Z", "pale", 1]
       ],
-      details: `<path class="a-col" d="M200 366 V196 M150 366 V250 M250 366 V250"/>`,
-      sun: null, trail: "M200 424 V380 M200 380 Q150 360 110 340 M200 380 Q250 360 290 340 M110 340 Q80 320 62 296 M110 340 Q116 308 128 286 M290 340 Q320 320 338 296 M290 340 Q284 308 272 286"
+      details: `<path class="a-iron" d="M30 240 A170 60 0 1 0 370 240 A170 60 0 1 0 30 240Z M70 240 A130 42 0 1 0 330 240 A130 42 0 1 0 70 240Z"/>
+        <path class="a-iron" d="M200 218 V262 M150 224 V258 M250 224 V258 M96 240 H304"/>
+        <path class="a-arch" d="M44 372 V338 Q56 320 68 338 V372 M96 378 V346 Q108 328 120 346 V378 M148 382 V350 Q160 332 172 350 V382 M228 382 V350 Q240 332 252 350 V382 M280 378 V346 Q292 328 304 346 V378 M332 372 V338 Q344 320 356 338 V372"/>`,
+      sun: null, trail: "M0 424 Q100 398 200 412 T400 402"
     },
     /* Berkeley hills: ascending, winding path to a gold marker */
     hills: {
@@ -76,8 +81,8 @@
         ["M0 300 Q90 180 200 250 T400 200 V400 H0Z", "far", 0],
         ["M0 360 Q120 250 250 320 T400 280 V400 H0Z", "tower", 1]
       ],
-      details: `<circle class="a-gold a-fade" cx="320" cy="72" r="9"/>`,
-      sun: [320, 96, 34], trail: "M30 420 Q110 380 170 360 T270 316 T330 256 T350 168"
+      details: `<circle class="a-gold a-fade" cx="350" cy="168" r="9"/>`,
+      sun: [305, 112, 40], trail: "M30 420 Q110 380 170 360 T270 316 T330 256 T350 168"
     }
   };
 
@@ -86,7 +91,7 @@
     let i = 0;
     const lines = a.shapes.filter((s) => s[2]).map((s) => `<path class="ln" pathLength="1" style="--i:${i++}" d="${s[0]}"/>`).join("");
     const fills = a.shapes.map((s) => `<path class="a-${s[1]}" d="${s[0]}"/>`).join("");
-    const sun = a.sun ? `<circle class="a-halo a-fade" cx="${a.sun[0]}" cy="${a.sun[1]}" r="${a.sun[2] * 2}"/><circle class="a-sun a-fade" cx="${a.sun[0]}" cy="${a.sun[1]}" r="${a.sun[2]}"/>` : "";
+    const sun = a.sun ? `<g class="a-pulse"><circle class="a-halo a-fade" cx="${a.sun[0]}" cy="${a.sun[1]}" r="${a.sun[2] * 2}"/><circle class="a-sun a-fade" cx="${a.sun[0]}" cy="${a.sun[1]}" r="${a.sun[2]}"/></g>` : "";
     return `<svg class="art" role="img" aria-label="${a.label}" viewBox="0 0 400 440" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
       ${sun}<g class="a-fills a-fade">${fills}</g><g class="a-details a-fade">${a.details}</g><g class="a-lines">${lines}</g>
       <path class="a-trail" d="${a.trail}"/></svg>`;

@@ -35,8 +35,8 @@ a{color:var(--blue);text-decoration-thickness:2px;text-underline-offset:3px}
 .slide.big{--rail:clamp(260px,38vw,540px)}
 .slide .inner{grid-column:1;grid-row:1;position:relative;z-index:2;width:100%;max-width:880px;display:flex;flex-direction:column;gap:.9em}
 .slide .inner>*{margin:0}
-.art-wrap{grid-column:2;grid-row:1;align-self:stretch;justify-self:stretch;display:flex;align-items:flex-end;justify-content:center;pointer-events:none;min-width:0}
-.art{width:100%;height:auto;max-height:min(62vh,560px);display:block;overflow:visible;position:sticky;bottom:16px}
+.art-wrap{grid-column:2;grid-row:1;align-self:stretch;justify-self:stretch;display:flex;align-items:flex-start;justify-content:center;pointer-events:none;min-width:0}
+.art{width:100%;height:auto;max-height:min(72vh,620px);display:block;overflow:visible;position:sticky;top:clamp(16px,9vh,88px)}
 .slide.wide{grid-template-columns:minmax(0,1fr);row-gap:20px;align-content:center}
 .slide.wide .art-wrap{grid-column:1;grid-row:2;justify-content:flex-end;height:96px}
 .slide.wide .art{height:100%;width:auto;max-width:100%;position:static}
@@ -175,11 +175,11 @@ body[data-theme="light"] .seg.now .seg-l{color:var(--blue);font-weight:700}
 @media (max-width:700px){.lbl{display:none}.secname{display:none}.seg-l{display:none}.count{min-width:3.6em}.top{justify-content:space-between}.brand{font-size:.95rem}}
 /* motion: one deliberate entrance per section; nothing loops */
 .anim .rv{animation:rise .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0ms)}
-.anim .a-lines .ln{animation:draw 1.5s cubic-bezier(.4,0,.2,1) both;animation-delay:calc(var(--i)*140ms)}
-.anim .a-fade{animation:fadein 1s ease-out both;animation-delay:1.4s}
+.anim .a-lines .ln{animation:draw 1.2s cubic-bezier(.4,0,.2,1) both;animation-delay:calc(var(--i)*110ms)}
+.anim .a-fade{animation:fadein .8s ease-out both;animation-delay:1.1s}
 .anim .a-halo,.anim .a-sun{animation-delay:.2s}
-.anim .a-trail{animation:reveal 1.6s cubic-bezier(.4,0,.2,1) both;animation-delay:1.6s}
-.anim .art-static *{animation:none!important}
+.anim .a-trail{animation:reveal 1.2s cubic-bezier(.4,0,.2,1) both;animation-delay:1.2s}
+.anim .art-static *:not(.a-pulse){animation:none!important}
 @keyframes rise{from{opacity:0;transform:translate(var(--dx,0px),22px)}to{opacity:1;transform:none}}
 @keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -234,3 +234,91 @@ body.nomotion .poll-btn:hover,body.nomotion .poll-btn:focus-visible,body.nomotio
 .cues p{margin:0;font-size:.95em}
 @media (max-width:700px){.cues{grid-template-columns:minmax(0,1fr)}}
 .cues li>div{min-width:0}.cues h2{overflow-wrap:anywhere}
+
+.keyq-sub{font-family:var(--sans)!important;font-size:.85rem!important;line-height:1.5!important;font-weight:400!important;margin-top:.6em!important}
+/* event feature on the access slide: content-heavy, so no landmark art here */
+.slide.k-access{grid-template-columns:minmax(0,1fr)}
+.slide.k-access .art-wrap{display:none}
+.k-access .inner{max-width:1040px}
+.event{background:#fff;color:#000;border:2px solid var(--blue);border-top:8px solid var(--gold);padding:clamp(14px,2vw,26px);margin-top:.4em}
+.event-grid{display:grid;grid-template-columns:minmax(180px,300px) minmax(0,1fr);gap:clamp(16px,3vw,36px);align-items:start;margin-top:.6em}
+.event-img{display:block;text-decoration:none;color:var(--blue)!important;font-weight:600;font-size:.8rem}
+.event-img img{display:block;width:100%;height:auto;border:1px solid #cfc9b8;margin-bottom:.4em}
+.event-info h3{font-size:1.25em;margin:0 0 .3em;color:var(--blue)}.event-info p{margin:.4em 0}
+.event-info .when{font-weight:700;font-size:1.1em}
+@media (max-width:700px){.event-grid{grid-template-columns:minmax(0,1fr)}.event-img{max-width:320px}}
+.event-info .check{font-style:italic;font-size:.9em}
+
+/* stronger Berkeley blue and gold art; Doe Library facade */
+.a-far{opacity:.3}.a-far2{opacity:.5}
+.a-mid{fill:var(--blue);opacity:.75}.a-wall{fill:var(--navy)}
+.a-colfill path{fill:var(--pale);stroke:var(--gold);stroke-width:2}
+.a-capital{fill:var(--gold)}
+.slide.dark .a-far{opacity:1}.slide.dark .a-far2{opacity:1}.slide.dark .a-mid{fill:#14589A;opacity:1}.slide.dark .a-wall{fill:#0A3A6B}
+.k-poll .rhythm{margin-top:clamp(40px,7vh,72px)}
+
+/* dark slides: brighter blues so the landmark reads clearly */
+.slide.dark .a-far{fill:#12497F}.slide.dark .a-far2{fill:#1A5EA0}.slide.dark .a-mid{fill:#2B78C4}.slide.dark .a-tower{fill:#1F6AB5}.slide.dark .a-wall{fill:#0E4A87}.slide.dark .a-pale{fill:#2B78C4}
+.slide.dark .a-lines .ln{stroke-width:4}
+/* video panel */
+.video{flex-direction:column;align-items:flex-start;gap:.8em}
+.video-head{display:flex;gap:1em;align-items:center}
+.video .vtitle{font-size:1.4em;margin:.1em 0;color:var(--white)}.video .vby{margin:0;font-size:.95em}
+.vactions{display:flex;gap:1em;flex-wrap:wrap;align-items:center}
+.vbtn{font:700 .9rem var(--sans);min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--gold);background:var(--gold);color:var(--navy);cursor:pointer}
+.vframe{width:100%;max-width:560px}.vframe[hidden]{display:none}
+.vframe iframe{width:100%;aspect-ratio:504/420;min-height:360px;border:0;background:#fff;display:block}
+.k-provocation .inner{max-width:800px}
+
+/* slide 3-2: coded motion graphic */
+.slide.k-motion{grid-template-columns:minmax(0,1fr)}.slide.k-motion .art-wrap{display:none}
+.k-motion .inner{max-width:960px}
+.mdemo{display:flex;flex-direction:column;gap:.8em}
+.mstage{border:3px solid var(--blue);border-radius:10px;overflow:hidden;background:var(--off);box-shadow:8px 8px 0 var(--pale)}
+.mstage svg{display:block;width:100%;height:auto}
+.m-bg{fill:#FAF8F2}.m-ground{stroke:var(--blue);stroke-width:4;stroke-linecap:round;fill:none}
+.m-rail{stroke:var(--blue);stroke-width:5;stroke-linecap:round;fill:none}.m-rung{stroke:var(--gold);stroke-width:7;stroke-linecap:round;fill:none}
+.m-person circle,.m-person path{fill:var(--blue);stroke:var(--navy);stroke-width:3}.m-person .m-arm{fill:none;stroke:var(--blue);stroke-width:9;stroke-linecap:round}
+.m-block rect{fill:var(--blue);stroke:var(--navy);stroke-width:3}.m-block .m-top{fill:var(--gold);stroke:none}
+.m-card rect{fill:var(--gold);stroke:var(--navy);stroke-width:3}.m-card path{stroke:var(--navy);stroke-width:3;stroke-linecap:round;fill:none}
+.m-seat path{fill:none;stroke:var(--gold);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 11}
+.m-q{font-family:var(--serif);font-weight:700;font-size:46px;fill:var(--blue)}
+.m-lab{font:700 15px var(--sans);fill:#000;letter-spacing:.06em;text-transform:uppercase}
+.mcap{margin:0;font-family:var(--serif);font-size:1.15em;min-height:1.5em}
+.mctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mchap{display:inline-flex;gap:8px;flex-wrap:wrap}
+.mb{font:700 .85rem var(--sans);min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--blue);background:#fff;color:var(--blue);cursor:pointer}
+.mb.primary{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.mb[aria-current="step"],.mb[aria-pressed="true"]{background:var(--blue);color:#fff}
+.mb:hover{background:var(--pale)}
+.mscrub{flex:1 1 160px;min-width:140px}.mscrub input{width:100%;accent-color:var(--blue)}
+.mctx{background:#fff;border:2px solid var(--blue);border-radius:6px;padding:.4em 1em}
+.mctx summary{cursor:pointer;font-weight:700;color:var(--blue);min-height:44px;display:flex;align-items:center}
+.mctx-body p{margin:.5em 0;font-size:.95em}
+
+/* books and example typography (slides 4-1, 4-2) */
+.book{align-items:flex-start;max-width:760px;background:#fff;border:2px solid var(--blue);border-radius:8px;padding:1em}
+img.cover{flex:0 0 auto;width:clamp(96px,14vw,140px);height:auto;aspect-ratio:auto;border:1px solid #cfc9b8;box-shadow:4px 4px 0 var(--pale);display:block;padding:0}
+.book .brole{font-size:.92em}
+.example{margin:.2em 0}.example .ex-h{font-weight:700;margin:0 0 .5em;color:var(--blue)}
+.example ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:.7em}
+.example li::marker{color:var(--gold)}
+/* gentle sun pulse: art only, off with Motion off or reduced motion, paused when offscreen */
+.a-arch{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.a-pulse{transform-box:fill-box;transform-origin:center;animation:sunpulse 7s ease-in-out 2.2s infinite}
+@keyframes sunpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.art-off .a-pulse{animation-play-state:paused}
+.slide.dark .a-arch{stroke:var(--gold)}
+img.cover{background:none}
+.stage .slide{overflow-x:clip}
+
+/* final presentation details */
+.explore{font-size:.85em;opacity:.95;margin-top:.4em}
+.submit-btn{font-size:1.1em;padding:.9em 1.5em}
+.slide.k-motion{padding-top:clamp(12px,2.5vh,28px);padding-bottom:clamp(12px,2.5vh,28px)}
+.k-motion .inner{gap:.5em}
+.k-motion h1{font-size:clamp(1.8rem,2.2vw+.8rem,2.6rem)}
+.mstage{display:flex;justify-content:center}
+.mstage svg{width:auto;height:auto;max-width:100%;max-height:clamp(220px,46vh,420px);aspect-ratio:800/420}
+.mcap{min-height:1.4em;font-size:1.05em}
+.a-pulse{overflow:visible}

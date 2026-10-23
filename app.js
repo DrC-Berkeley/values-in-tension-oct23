@@ -8,7 +8,7 @@
   const ext = (href, label) => `<a class="ext" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}<span class="sr"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>`;
   const linkOf = (k) => L[k] || k;
 
-  let dir = 1, cur = 0, instructor = false, replay = false, sameArt = false, prevArt = null, motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let artObs = null, dir = 1, cur = 0, instructor = false, replay = false, sameArt = false, prevArt = null, motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   try { instructor = localStorage.getItem("vit-instructor") === "1"; } catch (e) {}
   try { const m = localStorage.getItem("vit-motion"); if (m === "on") motion = true; else if (m === "off") motion = false; } catch (e) {}
 
@@ -17,7 +17,7 @@
     p: (b) => `<p class="rv">${esc(b.text)}</p>`,
     lead: (b) => `<p class="lead rv">${esc(b.text)}</p>`,
     note: (b) => `<p class="note rv">${esc(b.text)}</p>`,
-    q: (b) => `<div class="keyq rv">${b.label ? `<span class="keyq-label">${esc(b.label)}</span>` : ""}<p>${esc(b.text)}</p></div>`,
+    q: (b) => `<div class="keyq rv">${b.label ? `<span class="keyq-label">${esc(b.label)}</span>` : ""}<p>${esc(b.text)}</p>${b.sub ? `<p class="keyq-sub">${esc(b.sub)}</p>` : ""}</div>`,
     list: (b) => `<ul class="prompts">${b.items.map((i) => `<li class="rv">${esc(i)}</li>`).join("")}</ul>`,
     transition: (b) => `<p class="transition rv"><span class="tlabel">Where this leads</span>${esc(b.text)}</p>`,
     terms: (b) => `<dl class="terms">${b.items.map((i) => `<div class="rv"><dt>${esc(i.h)}</dt><dd>${esc(i.d)}</dd></div>`).join("")}</dl>`,
@@ -37,19 +37,25 @@
         ${st.note ? `<p class="dnote">${esc(st.note)}</p>` : ""}</li>`).join("")}</ol>
       <div class="keyq rv"><p>${esc(D.close)}</p></div>`; },
     cues: (b) => `<ol class="cues">${b.items.map((i, n) => `<li class="rv"><span class="cn">${n + 1}</span><div><h2>${esc(i.h)}</h2><p>${esc(i.d)}</p></div></li>`).join("")}</ol>`,
+    event: (b) => { const src = (window.ASSET_DIR || "") + b.flyerSrc; return `<section class="event rv" aria-label="Upcoming campus event"><p class="eyebrow">A real campus conversation, separate from the office-hours account</p>
+      <div class="event-grid"><a class="event-img" href="${esc(src)}" target="_blank" rel="noopener noreferrer"><img src="${esc(src)}" width="1545" height="1999" loading="lazy" alt="${esc(b.alt)}"><span>Open the flyer full size<span class="sr"> (opens in a new tab)</span> ↗</span></a>
+      <div class="event-info"><h3>${esc(b.title)}</h3><p class="when">${esc(b.when)}</p><p>${esc(b.host)}</p><p class="check">${esc(b.check)}</p>
+      <p class="linkrow">${b.links.map((l) => ext(linkOf(l.href), esc(l.label))).join(" ")}</p>
+      <p class="small">RSVPs happen on the event's own links. We don't collect them here.</p></div></div></section>`; },
+    motion: (b) => window.MotionDemo.html(b),
+    explore: (b) => `<p class="explore rv">${esc(b.label)} ${ext(linkOf(b.href), esc(b.link))}</p>`,
     flyer: (b) => `<div class="flyer rv"><div class="flyer-img">${b.flyerSrc ? `<img src="${esc(b.flyerSrc)}" alt="Flyer for Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning, November 2, 12 to 2 PM, Student Center">`
         : `<span class="placeholder">[ASSET NEEDED: Neuro Nexus event flyer image]</span>`}</div>
       <div><p class="eyebrow">Upcoming event</p><h3>Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning</h3>
       <p>November 2, 12–2 PM, Student Center</p><p class="small">Berkeley students and faculty are already discussing neurodivergent learning experiences.</p></div></div>`,
-    video: () => `<div class="video rv"><div class="video-play" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 20l18 12-18 12z" fill="currentColor"/></svg></div>
-      <div><p class="eyebrow">Video</p><h3>Testimony on AI and labor, Australian parliamentary hearing</h3>
-      <p>${ext(L.video, "Watch on LinkedIn")}</p>
-      <ul class="meta"><li>Speaker: <span class="placeholder">[speaker name to be confirmed]</span></li>
-      <li>Transcript or captions: <span class="placeholder">[pending]</span></li>
-      <li>Backup link if playback fails: <span class="placeholder">[pending]</span></li></ul></div></div>`,
-    book: () => `<div class="book rv"><div class="cover" aria-hidden="true"><span>The 12 Week Year</span><small>Moran · Lennington</small></div>
-      <div><p class="eyebrow">Book</p><h3><em>The 12 Week Year</em></h3><p>Brian P. Moran and Michael Lennington</p>
-      <p>${ext(L.book, "Book record")}</p><p class="small placeholder">[Verified cover image pending]</p></div></div>`,
+    video: (b) => `<div class="video rv"><div class="video-head"><span class="video-play" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="3"/><path d="M26 20l18 12-18 12z" fill="currentColor"/></svg></span>
+      <div><p class="eyebrow">Video</p><h2 class="vtitle">${esc(b.title)}</h2><p class="vby">${esc(b.by)}</p></div></div>
+      <div class="vactions"><button type="button" class="vbtn" data-embed="${esc(b.embed)}" aria-expanded="false">Show the clip on this page</button>
+      ${ext(L.video, "Watch on LinkedIn")}</div><div class="vframe" hidden></div></div>`,
+    book: (b) => { const src = (window.ASSET_DIR || "") + b.src; return `<div class="book rv"><img class="cover" src="${esc(src)}" alt="${esc(b.alt)}" loading="lazy">
+      <div><p class="eyebrow">Book</p><h3><em>${esc(b.title)}</em></h3><p>${esc(b.by)}</p>
+      ${b.role ? `<p class="brole">${esc(b.role)}</p>` : ""}<p>${ext(linkOf(b.href), esc(b.label))}</p></div></div>`; },
+    example: (b) => `<div class="example rv"><p class="ex-h">For example</p><ul>${b.items.map((i) => `<li><strong>${esc(i.h)}</strong> ${esc(i.d)}</li>`).join("")}</ul></div>`,
     poll: (b) => pollBlock(P[b.poll]),
     assign: () => assignBlock(),
     agenda: () => agendaBlock()
@@ -70,8 +76,8 @@
       ["From personal reflection to participatory inquiry", ["Return to the problem you're investigating at UC Berkeley.", "Whose experiences or perspectives might challenge your current understanding?", "What question could you ask those people before deciding what needs to change?"]]
     ];
     const sub = L.bcourses
-      ? `<a class="submit-btn" href="${esc(L.bcourses)}" target="_blank" rel="noopener noreferrer">Open the bCourses assignment<span class="sr"> (opens in a new tab)</span> ↗</a>`
-      : `<div class="submit-btn pending" role="note"><span class="placeholder">[bCourses submission link: final assignment URL pending]</span></div>`;
+      ? `<a class="submit-btn" href="${esc(L.bcourses)}" target="_blank" rel="noopener noreferrer">Submit your attendance reflection in bCourses<span class="sr"> (opens in a new tab)</span> ↗</a>`
+      : `<div class="submit-btn pending instr-only" role="note"><span class="placeholder">[bCourses submission link: final assignment URL pending]</span></div>`;
     return `<p class="lead rv">15 minutes. Individual reflection. Submit through bCourses.</p>
       <div class="assign">${prompts.map((p, i) => `<section class="rv"><h2><span class="cn">${i + 1}</span>${esc(p[0])}</h2>${p[1].map((t) => `<p>${esc(t)}</p>`).join("")}</section>`).join("")}</div>
       <div class="submit rv">${sub}<p class="small">Take the full 15 minutes. This slide stays here until you move on.</p></div>`;
@@ -133,7 +139,9 @@
     const artKey = SEC[s.section].art;
     sameArt = !first && prevArt === artKey;
     document.title = s.id === "0-1" ? "Values in Tension · Who Are We Becoming?" : `${s.title} · Values in Tension`;
+    if (window.MotionDemo) window.MotionDemo.cleanup();
     stage.innerHTML = slideHTML(s);
+    if (window.MotionDemo && s.kind === "motion") window.MotionDemo.mount(stage);
     prevArt = artKey; replay = false;
     stage.className = "stage anim";
     stage.style.setProperty("--dx", dir * 28 + "px");
@@ -151,6 +159,11 @@
     $("#fill").style.width = ((cur + 1) / S.length * 100) + "%";
     $("#live").textContent = `Slide ${cur + 1} of ${S.length}: ${s.title}`;
     stage.querySelectorAll(".rv").forEach((n, i) => n.style.setProperty("--d", Math.min(i, 12) * 60 + "ms"));
+    if (artObs) artObs.disconnect();
+    if ("IntersectionObserver" in window) {
+      artObs = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle("art-off", !e.isIntersecting)));
+      const aw = stage.querySelector(".art-wrap"); if (aw) artObs.observe(aw);
+    }
     if (!first) { const h = $("#slide-title"); if (h) h.focus({ preventScroll: true }); }
   }
 
@@ -173,7 +186,7 @@
   function setMotion(on) {
     motion = on; try { localStorage.setItem("vit-motion", on ? "on" : "off"); } catch (e) {}
     applyMotion(); $("#live").textContent = on ? "Motion on" : "Motion off";
-    if (on) { replay = true; render(); }
+    if (on || S[cur].kind === "motion") { replay = true; render(); }
   }
   function setInstructor(on) {
     instructor = on;
@@ -186,6 +199,13 @@
   document.addEventListener("DOMContentLoaded", () => {
     buildProgress();
     window.addEventListener("hashchange", () => fromHash(false));
+    $("#stage").addEventListener("click", (e) => {
+      const btn = e.target.closest && e.target.closest(".vbtn"); if (!btn) return;
+      const box = btn.parentElement.nextElementSibling, open = btn.getAttribute("aria-expanded") === "true";
+      if (open) { box.hidden = true; box.innerHTML = ""; btn.setAttribute("aria-expanded", "false"); btn.textContent = "Show the clip on this page"; return; }
+      box.innerHTML = `<iframe src="${esc(btn.dataset.embed)}" title="Testimony on AI and Labor, LinkedIn video (no autoplay)" loading="lazy" allowfullscreen></iframe>`;
+      box.hidden = false; btn.setAttribute("aria-expanded", "true"); btn.textContent = "Hide the clip";
+    });
     $("#prev").addEventListener("click", () => go(cur - 1));
     $("#next").addEventListener("click", () => go(cur + 1));
     $("#agendabtn").addEventListener("click", () => { location.hash = "0-3"; });
