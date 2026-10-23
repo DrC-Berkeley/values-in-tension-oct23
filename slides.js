@@ -188,13 +188,12 @@ window.SLIDES = [
   blocks: [
     { t: "p", text: "Australian parliamentary testimony concerning AI and labor." },
     { t: "p", text: "Dr Richard Denniss, co-CEO of The Australia Institute, argues that economic incentives behind AI adoption are closely connected to replacing human labor. This is his argument, not an uncontested fact." },
-    { t: "video", title: "Testimony on AI and Labor", by: "Dr Richard Denniss \u00b7 Australian parliamentary hearing",
-      embed: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7518565184244916225" }
+    { t: "video", title: "Testimony on AI and Labor", by: "Dr Richard Denniss \u00b7 Australian parliamentary hearing" }
   ],
   instructor: { say: "Present this as the speaker's argument. Ask students what they would want to check before agreeing or disagreeing.",
     links: [ { label: "Source: The Point, 22 October 2026, reporting Dr Denniss's testimony to the Joint Select Committee on Artificial Intelligence", href: "https://thepoint.com.au/new/261022-not-an-unintended-consequence-mass-unemployment-is-the-ai-business-model" },
              { label: "Profile: Richard Denniss, The Australia Institute", href: "https://australiainstitute.org.au/expert/richard-denniss/page/2/" } ],
-    verify: "Speaker and role are confirmed by The Point article (co-CEO of The Australia Institute; Joint Select Committee on Artificial Intelligence; 22 Oct 2026). The profile page returned an access error to my automated fetch, so the title is not independently re-confirmed there. The article does not give a separate hearing date. The 'Show the clip' button loads LinkedIn's official embed of a public post by another LinkedIn user (Amy L.), whose caption attributes a quote to a different source; the embed also cannot be confirmed to match the original parliamentary recording. It never autoplays. Check captions in LinkedIn's player before class. If you have the original parliamentary video or a transcript, supply it." } },
+    verify: "Speaker and role are confirmed by The Point article (co-CEO of The Australia Institute; Joint Select Committee on Artificial Intelligence; 22 Oct 2026). The profile page returned an access error to my automated fetch, so the title is not independently re-confirmed there. The article does not give a separate hearing date. The page links out to the LinkedIn post and no longer embeds it (the embed showed another user's whole post and caption). I cannot confirm the linked clip matches the original parliamentary recording; check captions on LinkedIn before class, and supply the original video or a transcript if you have one." } },
 
 { id: "3-2", section: 3, kind: "thought", theme: "light", rhythm: 1,
   kicker: "A thought experiment",

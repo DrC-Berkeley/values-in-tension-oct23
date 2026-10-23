@@ -87,6 +87,12 @@
     tx: 200, s: 1.06, ground: 452, vb: "0 0 400 480", band: "M0 414 Q90 390 190 408 T400 398 V452 H0Z", gx: [0, 400],
     trail: "M10 470 Q110 456 220 464 T390 458", sunAbs: true
   });
+  /* Movement 3 opening (#3-1): the Memorial Stadium style bowl enlarged and grounded lower right; sun is its own top-right element */
+  SHAPES.stadiumopening = Object.assign({}, SHAPES.stadium, {
+    label: "Illustration: a Memorial Stadium style oval bowl in dark Berkeley blue with gold arches, standing low in a long campus landscape, with a large sun in the upper right.",
+    tx: 200, s: 1.05, ground: 452, vb: "0 0 400 480", band: "M0 414 Q90 390 190 408 T400 398 V452 H0Z", gx: [0, 400],
+    trail: "M10 470 Q110 456 220 464 T390 458", sunAbs: true
+  });
   function render(key) {
     const a = SHAPES[key];
     let i = 0;

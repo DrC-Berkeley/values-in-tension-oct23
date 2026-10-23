@@ -454,3 +454,10 @@ img.cover{background:none}
 
 /* Independent scene sun retains the Berkeley palette outside the art SVG. */
 .sun-abs .a-sun{fill:#FDB515}.sun-abs .a-halo{fill:#8A93A0;opacity:.55}
+
+/* testimony: clean attribution with a primary external link (no embed, no box) */
+.watch{margin-top:.4em}
+.watch .vtitle{font-size:1.55em;margin:.15em 0 .1em;color:var(--white)}
+.watch .vby{margin:0 0 .9em;font-size:1em}
+.watchbtn{display:inline-block;background:var(--gold);color:#071F38!important;font-weight:700;padding:.8em 1.4em;border-radius:999px;text-decoration:none;min-height:44px}
+.watchbtn:hover{background:#fff}

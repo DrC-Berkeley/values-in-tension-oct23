@@ -4,8 +4,8 @@
   const S = window.SLIDES, SEC = window.SECTIONS, L = window.LINKS, P = window.POLLS, R = window.RHYTHM;
   const $ = (s, r) => (r || document).querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const OPENING = ["0-1", "0-2", "1-1"];
-  const SCENE = { "0-1": "opening", "0-2": "opening", "1-1": "gateopening" }; // opening scene: large Campanile anchor on the lower right
+  const OPENING = ["0-1", "0-2", "1-1", "3-1"];
+  const SCENE = { "0-1": "opening", "0-2": "opening", "1-1": "gateopening", "3-1": "stadiumopening" }; // opening scene: large Campanile anchor on the lower right
   const NOART = ["excerpt", "discuss", "cues", "book", "compare", "access", "motion", "assignment", "account", "thought", "poll"]; // reading, results, and content-heavy slides carry no campus art
   const idx = (id) => S.findIndex((s) => s.id === id);
   const ext = (href, label) => `<a class="ext" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}<span class="sr"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>`;
@@ -51,9 +51,8 @@
         : `<span class="placeholder">[ASSET NEEDED: Neuro Nexus event flyer image]</span>`}</div>
       <div><p class="eyebrow">Upcoming event</p><h3>Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning</h3>
       <p>November 2, 12–2 PM, Student Center</p><p class="small">Berkeley students and faculty are already discussing neurodivergent learning experiences.</p></div></div>`,
-    video: (b) => `<div class="video rv"><div class="video-head"><div><p class="eyebrow">Video</p><h2 class="vtitle">${esc(b.title)}</h2><p class="vby">${esc(b.by)}</p></div></div>
-      <div class="vactions"><button type="button" class="vbtn" data-embed="${esc(b.embed)}" aria-expanded="false">Show the clip on this page</button>
-      ${ext(L.video, "Watch on LinkedIn")}</div><div class="vframe" hidden></div></div>`,
+    video: (b) => `<div class="watch rv"><p class="eyebrow">Testimony</p><h2 class="vtitle">${esc(b.title)}</h2><p class="vby">${esc(b.by)}</p>
+      <p><a class="watchbtn" href="${esc(L.video)}" target="_blank" rel="noopener noreferrer">Watch on LinkedIn<span class="sr"> (opens in a new tab)</span> ↗</a></p></div>`,
     book: (b) => { const src = (window.ASSET_DIR || "") + b.src; return `<div class="book rv"><img class="cover" src="${esc(src)}" alt="${esc(b.alt)}" loading="lazy">
       <div><p class="eyebrow">Book</p><h3><em>${esc(b.title)}</em></h3><p>${esc(b.by)}</p>
       ${b.role ? `<p class="brole">${esc(b.role)}</p>` : ""}<p>${ext(linkOf(b.href), esc(b.label))}</p></div></div>`; },
@@ -206,13 +205,6 @@
     buildProgress();
     window.addEventListener("hashchange", () => fromHash(false));
     window.addEventListener("resize", () => $("#stage").style.setProperty("--stageH", $("#stage").clientHeight + "px"));
-    $("#stage").addEventListener("click", (e) => {
-      const btn = e.target.closest && e.target.closest(".vbtn"); if (!btn) return;
-      const box = btn.parentElement.nextElementSibling, open = btn.getAttribute("aria-expanded") === "true";
-      if (open) { box.hidden = true; box.innerHTML = ""; btn.setAttribute("aria-expanded", "false"); btn.textContent = "Show the clip on this page"; return; }
-      box.innerHTML = `<iframe src="${esc(btn.dataset.embed)}" title="Testimony on AI and Labor, LinkedIn video (no autoplay)" loading="lazy" allowfullscreen></iframe>`;
-      box.hidden = false; btn.setAttribute("aria-expanded", "true"); btn.textContent = "Hide the clip";
-    });
     $("#prev").addEventListener("click", () => go(cur - 1));
     $("#next").addEventListener("click", () => go(cur + 1));
     $("#agendabtn").addEventListener("click", () => { location.hash = "0-3"; });
