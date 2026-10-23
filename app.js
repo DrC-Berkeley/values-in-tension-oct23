@@ -8,8 +8,9 @@
   const ext = (href, label) => `<a class="ext" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}<span class="sr"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>`;
   const linkOf = (k) => L[k] || k;
 
-  let cur = 0, instructor = false;
+  let dir = 1, cur = 0, instructor = false, replay = false, sameArt = false, prevArt = null, motion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   try { instructor = localStorage.getItem("vit-instructor") === "1"; } catch (e) {}
+  try { const m = localStorage.getItem("vit-motion"); if (m === "on") motion = true; else if (m === "off") motion = false; } catch (e) {}
 
   /* ---------- block renderers ---------- */
   const B = {
@@ -27,6 +28,15 @@
       <p class="paper-by">By ${esc(b.by)} · ${esc(b.date)}</p><p>${esc(b.synopsis)}</p>
       ${b.excerpt ? `<blockquote>“${esc(b.excerpt)}”<cite>Naishu Vempali</cite></blockquote>` : ""}
       <p>${ext(linkOf(b.href), "Read the full article")}</p></article>`,
+    excerpt: (b) => `<figure class="excerpt rv"><blockquote><p>${esc(b.text)}</p></blockquote>
+      <figcaption><strong>${esc(b.by)}</strong>, <em>${esc(b.cite)}</em><br>${esc(b.pub)}<br>${ext(linkOf(b.href), "Read the original article")}</figcaption></figure>
+      <section class="ask rv" aria-label="Discussion questions"><p class="ask-h">Questions for us</p><ul>${b.questions.map((q) => `<li>${esc(q)}</li>`).join("")}</ul></section>`,
+    dialogue: () => { const D = window.DIALOGUE; return `<p class="lead rv">${esc(D.lead)}</p>
+      <ol class="dsteps">${D.steps.map((st, i) => `<li class="rv"><span class="cn">${i + 1}</span><h2>${esc(st.h)}</h2>
+        ${st.d ? `<p>${esc(st.d)}</p>` : ""}${st.prompts ? `<ul>${st.prompts.map((q) => `<li>${esc(q)}</li>`).join("")}</ul>` : ""}
+        ${st.note ? `<p class="dnote">${esc(st.note)}</p>` : ""}</li>`).join("")}</ol>
+      <div class="keyq rv"><p>${esc(D.close)}</p></div>`; },
+    cues: (b) => `<ol class="cues">${b.items.map((i, n) => `<li class="rv"><span class="cn">${n + 1}</span><div><h2>${esc(i.h)}</h2><p>${esc(i.d)}</p></div></li>`).join("")}</ol>`,
     flyer: (b) => `<div class="flyer rv"><div class="flyer-img">${b.flyerSrc ? `<img src="${esc(b.flyerSrc)}" alt="Flyer for Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning, November 2, 12 to 2 PM, Student Center">`
         : `<span class="placeholder">[ASSET NEEDED: Neuro Nexus event flyer image]</span>`}</div>
       <div><p class="eyebrow">Upcoming event</p><h3>Neuro Nexus: Student–Faculty Conversation on Neurodivergent Student Learning</h3>
@@ -87,8 +97,7 @@
     const artKey = sec.art;
     const ins = s.instructor || {};
     const pollRes = ins.poll ? `<p><a class="ext" href="${esc(P[ins.poll].results)}" target="_blank" rel="noopener noreferrer">Open Form ${ins.poll} results ↗</a></p>` : "";
-    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}" data-section="${s.section}">
-      <div class="art-wrap">${window.ART[artKey]()}</div>
+    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${["agenda", "assignment"].includes(s.kind) ? " wide" : ""}" data-section="${s.section}">
       <div class="inner">
         ${s.kicker ? `<p class="kicker rv">${esc(s.kicker)}</p>` : ""}
         <h1 class="rv" id="slide-title" tabindex="-1">${esc(s.title)}</h1>
@@ -96,12 +105,16 @@
         ${s.blocks.map((b) => B[b.t](b)).join("")}
         ${rhythmStrip(s.rhythm)}
       </div>
+      <div class="art-wrap${replay || sameArt ? (replay ? "" : " art-static") : ""}">${window.ART[artKey]()}</div>
       <aside class="instr" aria-label="Instructor notes">
         <p class="instr-h">Instructor · ${esc(sec.label)} · ${sec.time}</p>
         <p><strong>Purpose.</strong> ${esc(sec.purpose)}</p>
         ${ins.say ? `<p><strong>Say / do.</strong> ${esc(ins.say)}</p>` : ""}
         ${ins.move ? `<p>${esc(ins.move)}</p>` : ""}
         ${pollRes}
+        ${ins.transition ? `<p><strong>Transition to say next.</strong> ${esc(ins.transition)}</p>` : ""}
+        ${ins.links ? ins.links.map((l) => `<p>${ext(linkOf(l.href), esc(l.label))}</p>`).join("") : ""}
+        <p><strong>Timing.</strong> ${esc(sec.label)}: ${sec.time} (${sec.mins} min).</p>
         ${ins.verify ? `<p class="vflag"><strong>Check before class.</strong> ${esc(ins.verify)}</p>` : ""}
         <p class="small"><a href="#0-3">Back to agenda</a> · A client-side toggle is not authentication.</p>
       </aside>
@@ -117,9 +130,13 @@
 
   function render(first) {
     const s = S[cur], stage = $("#stage");
+    const artKey = SEC[s.section].art;
+    sameArt = !first && prevArt === artKey;
     document.title = s.id === "0-1" ? "Values in Tension · Who Are We Becoming?" : `${s.title} · Values in Tension`;
     stage.innerHTML = slideHTML(s);
+    prevArt = artKey; replay = false;
     stage.className = "stage anim";
+    stage.style.setProperty("--dx", dir * 28 + "px");
     document.body.dataset.theme = s.theme;
     document.body.classList.toggle("instructor", instructor);
     stage.scrollTop = 0;
@@ -143,8 +160,20 @@
   }
   function fromHash(first) {
     const i = idx(location.hash.slice(1));
-    cur = i >= 0 ? i : 0;
+    const n = i >= 0 ? i : 0; dir = n >= cur ? 1 : -1; cur = n;
     render(first);
+  }
+  function applyMotion() {
+    document.body.classList.toggle("nomotion", !motion);
+    document.body.classList.toggle("motion-on", motion);
+    const b = $("#mbtn"); b.setAttribute("aria-pressed", motion ? "true" : "false");
+    $("#mstate").textContent = motion ? "On" : "Off";
+    $("#rbtn").disabled = !motion;
+  }
+  function setMotion(on) {
+    motion = on; try { localStorage.setItem("vit-motion", on ? "on" : "off"); } catch (e) {}
+    applyMotion(); $("#live").textContent = on ? "Motion on" : "Motion off";
+    if (on) { replay = true; render(); }
   }
   function setInstructor(on) {
     instructor = on;
@@ -161,6 +190,8 @@
     $("#next").addEventListener("click", () => go(cur + 1));
     $("#agendabtn").addEventListener("click", () => { location.hash = "0-3"; });
     $("#ibtn").addEventListener("click", () => setInstructor(!instructor));
+    $("#mbtn").addEventListener("click", () => setMotion(!motion));
+    $("#rbtn").addEventListener("click", () => { replay = true; render(); });
     document.addEventListener("keydown", (e) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       const t = e.target; if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
@@ -171,8 +202,10 @@
       else if (k === "End") { e.preventDefault(); go(S.length - 1); }
       else if (k === "a" || k === "A") { location.hash = "0-3"; }
       else if (k === "i" || k === "I") { setInstructor(!instructor); }
+      else if (k === "m" || k === "M") { setMotion(!motion); }
     });
     $("#ibtn").setAttribute("aria-pressed", instructor ? "true" : "false");
+    applyMotion();
     fromHash(true);
   });
 })();

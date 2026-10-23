@@ -50,6 +50,19 @@ window.POLLS = {
        results: "https://docs.google.com/forms/d/18DVcYiIBtPReMqqg2iHXhKySrWWj8FDMuT15joF0jTs/edit#responses" }
 };
 
+/* Shared structure for every post-poll slide: results, then noticing, then dialogue.
+   No percentages, quotations, or sample responses belong here: the group's own results are shown live from Google Forms. */
+window.DIALOGUE = {
+  lead: "Let\u2019s look at our poll results together.",
+  steps: [
+    { h: "Results", d: "We\u2019ll look at the summary charts from the poll. They show the shape of the whole group, not any one person." },
+    { h: "Noticing", prompts: ["What patterns or differences do you notice?", "What surprised you or makes you curious?"] },
+    { h: "Dialogue", prompts: ["Who would like to explain what shaped their choice?", "If you chose Other, would you like to share your perspective?"],
+      note: "Sharing is always voluntary. Nothing on screen names anyone or shows written answers." }
+  ],
+  close: "Respond to one another, and reconsider what these charts can and cannot tell us."
+};
+
 window.SLIDES = [
 /* ---------------- SECTION 0 ---------------- */
 { id: "0-1", section: 0, kind: "title", theme: "dark", rhythm: null,
@@ -89,53 +102,48 @@ window.SLIDES = [
     { t: "q", text: "What should meaningful engagement look like at scale?" }
   ] },
 
-{ id: "1-2", section: 1, kind: "article", theme: "light", rhythm: 1,
-  kicker: "Movement 1 · Read",
-  title: "Encounter the article",
-  blocks: [ { t: "article",
-    title: "ChatGPT is my new TA, and I'm scared",
-    deck: "The unethical pedagogy of artificial intelligence",
-    by: "Naishu Vempali, Collegian Contributor",
-    pub: "The Massachusetts Daily Collegian",
-    date: "October 19, 2026",
-    synopsis: "A journalism student argues that using AI in classrooms replaces the human interaction that makes education meaningful, and takes away students' chances to build their own skills.",
-    excerpt: "education depends so much on interpersonal relationships.",
-    href: "article" } ],
-  instructor: { verify: "Headline, byline, and date were checked against the live article page on Oct 22. The short excerpt came from an automated read of the page: confirm the exact wording in the original before class, or delete the excerpt." } },
+{ id: "1-2", section: 1, kind: "excerpt", theme: "light", rhythm: 1,
+  kicker: "Movement 1 · Read closely",
+  title: "A passage to read closely",
+  blocks: [ { t: "excerpt",
+    text: "\u2018I want to know that my professor is actually sitting with the essays I write. I want them to engage with it, tear me apart in the comments. I want to know they read my email and cared enough to dignify me with a response, even if it\u2019s halfhearted and sent from their iPhone. I want to be able to offer a barely perceptible nose exhale to a meme on their slideshows, knowing they at least suffered searching for the perfect one. These small acts of intimacy are what breed connection between teacher and student. They are the reasons why I choose to raise my hand in class. They remind me that a real human being is actively trying to put information into my brain. They make me willing to receive it.\u2019",
+    by: "Naishu Vempali",
+    cite: "ChatGPT is my new TA, and I\u2019m scared",
+    pub: "The Massachusetts Daily Collegian, October 19, 2026",
+    href: "article",
+    questions: [
+      "What does this passage ask educators to provide, and what role does it imagine for the learner?",
+      "Where do you see connection, participation, or passive reception?" ] } ],
+  instructor: { say: "Read the passage aloud or give 60 seconds of silent reading. Then ask the two questions. Invite students to look closely at \u201cput information into my brain\u201d and \u201cwilling to receive it\u201d: does the passage describe active participation, or cast the learner as a recipient? Keep this a question about the text, not a verdict on the author.",
+    verify: "The passage is the instructor-supplied text, entered verbatim. Headline, byline, and date were checked against the live article on Oct 22. Compare the passage with the original if you want a final wording check." } },
 
 { id: "1-3", section: 1, kind: "poll", theme: "light", rhythm: 2, poll: 1,
   kicker: "Movement 1 · Poll",
   title: "What do we expect from educators, and what do we contribute as learners?",
   blocks: [ { t: "poll", poll: 1 } ] },
 
-{ id: "1-4", section: 1, kind: "discuss", theme: "light", rhythm: [3, 4],
-  kicker: "Movement 1 · What are we noticing?",
-  title: "What are we noticing?",
-  blocks: [
-    { t: "list", items: [
-      "What is Vempali asking educators to preserve?",
-      "Does human involvement automatically make feedback more meaningful?",
-      "What responsibilities do students have in sustaining the learning relationships they want?",
-      "When does AI support meaningful engagement, and when does it replace something consequential?" ] },
-    { t: "transition", text: "What happens when students and educators agree that learning matters, but disagree about the practices required to make it meaningful?" }
-  ],
-  instructor: { say: "Share Google Forms aggregate results. Invite contrasting interpretations.", poll: 1 } },
+{ id: "1-4", section: 1, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 1,
+  kicker: "Movement 1 · Poll results",
+  title: "What are we seeing together?",
+  blocks: [ { t: "dialogue" } ],
+  instructor: { say: "Open Form 1, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
+    poll: 1, transition: "What happens when students and educators agree that learning matters, but disagree about the practices required to make it meaningful?" } },
 
 /* ---------------- SECTION 2 ---------------- */
-{ id: "2-1", section: 2, kind: "account", theme: "light", rhythm: 0,
+{ id: "2-1", section: 2, kind: "cues", theme: "light", rhythm: 0,
   kicker: "Movement 2 · 9:30–9:45 · A conversation that challenged my thinking",
   title: "Attention, Access & the Work of Learning",
   blocks: [
-    { t: "note", text: "An anonymized, condensed account from office hours." },
-    { t: "p", text: "A Berkeley transfer student preparing for law school described feeling overwhelmed by the demands of his first semester." },
-    { t: "p", text: "He values Berkeley's intellectual challenge and recognizes that law school will require sustained reading, reasoning, and adaptability." },
-    { t: "p", text: "Yet he also described difficulty sustaining attention and a desire for shorter, more direct learning materials." },
-    { t: "p", text: "When we examined his confusion about an assignment, he acknowledged that the information he needed was already available in the syllabus, which he had consulted only twice." },
-    { t: "p", text: "He attributed some of this disconnect to TikTok, Instagram, and what he called his generation's “fried” attention." },
-    { t: "p", text: "But he also believed he would adapt when the demands of law school required it." },
+    { t: "note", text: "From an office-hours conversation. Anonymized." },
+    { t: "cues", items: [
+      { h: "The future they\u2019re preparing for", d: "Law school. Sustained reading." },
+      { h: "The request in the present", d: "Shorter, more direct materials." },
+      { h: "What happened when we looked together", d: "The needed information was in the syllabus. Consulted twice." },
+      { h: "The turn toward responsibility", d: "Attention habits now. An expectation of adapting later." } ] },
     { t: "q", text: "What explains the gap between what we want to become and what we practice today?" }
   ],
-  instructor: { say: "This is the instructor's account of one conversation, not a study. Do not identify the student or add detail.", verify: "Student-facing text is the approved anonymized account from the brief. No transcript is stored in this project." } },
+  instructor: { say: "Tell this in your own words; the slide is only a memory cue. The four labels are paraphrase cues, not quotations. Do not identify the student. Keep they/them/their.",
+    verify: "Exact quotations and key questions from the exchange are intentionally left out of student view: the raw transcript is not in this project. If you want any exact phrases shown, supply them and they can be added to this slide. [INSTRUCTOR DECISION NEEDED]" } },
 
 { id: "2-2", section: 2, kind: "access", theme: "light", rhythm: 1,
   kicker: "Movement 2 · Access",
@@ -157,19 +165,12 @@ window.SLIDES = [
   title: "How should we navigate the tension between support, challenge, and learner agency?",
   blocks: [ { t: "poll", poll: 2 } ] },
 
-{ id: "2-4", section: 2, kind: "discuss", theme: "light", rhythm: [3, 4],
-  kicker: "Movement 2 · What are we noticing?",
-  title: "What are we noticing?",
-  blocks: [
-    { t: "list", items: [
-      "Why might students not use learning resources that are already available?",
-      "What explanations are we overlooking when we attribute that behavior to attention spans?",
-      "How do we distinguish productive challenge from unnecessary barriers?",
-      "How much should educators adapt, and how much should learners develop new practices?",
-      "Who gets to decide?" ] },
-    { t: "transition", text: "What happens when technology doesn't merely support our learning, but increasingly performs the work through which we develop expertise?" }
-  ],
-  instructor: { say: "Share Google Forms aggregate results. Invite contrasting interpretations.", poll: 2 } },
+{ id: "2-4", section: 2, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 2,
+  kicker: "Movement 2 · Poll results",
+  title: "What are we seeing together?",
+  blocks: [ { t: "dialogue" } ],
+  instructor: { say: "Open Form 2, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
+    poll: 2, transition: "What happens when technology doesn't merely support our learning, but increasingly performs the work through which we develop expertise?" } },
 
 /* ---------------- SECTION 3 ---------------- */
 { id: "3-1", section: 3, kind: "provocation", theme: "dark", rhythm: 0,
@@ -200,19 +201,12 @@ window.SLIDES = [
   title: "What should determine what we delegate, and what we retain?",
   blocks: [ { t: "poll", poll: 3 } ] },
 
-{ id: "3-4", section: 3, kind: "discuss", theme: "light", rhythm: [3, 4],
-  kicker: "Movement 3 · What are we noticing?",
-  title: "What are we noticing?",
-  blocks: [
-    { t: "list", items: [
-      "Who benefits from automating human work?",
-      "What capabilities might people stop developing?",
-      "What happens when people retain formal authority but lose the expertise needed to exercise it?",
-      "Does greater intelligence necessarily mean greater wisdom or legitimate authority?",
-      "How might we design technologies that expand rather than diminish agency?" ] },
-    { t: "transition", text: "If our capabilities and identities are shaped partly by what we repeatedly do, how can we become more intentional about those practices?" }
-  ],
-  instructor: { say: "Share Google Forms aggregate results. Invite contrasting interpretations.", poll: 3 } },
+{ id: "3-4", section: 3, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 3,
+  kicker: "Movement 3 · Poll results",
+  title: "What are we seeing together?",
+  blocks: [ { t: "dialogue" } ],
+  instructor: { say: "Open Form 3, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
+    poll: 3, transition: "If our capabilities and identities are shaped partly by what we repeatedly do, how can we become more intentional about those practices?" } },
 
 /* ---------------- SECTION 4 ---------------- */
 { id: "4-1", section: 4, kind: "book", theme: "light", rhythm: 0,
@@ -246,21 +240,12 @@ window.SLIDES = [
   title: "What does it mean to live and learn in alignment with our values?",
   blocks: [ { t: "poll", poll: 4 } ] },
 
-{ id: "4-4", section: 4, kind: "discuss", theme: "light", rhythm: [3, 4],
-  kicker: "Movement 4 · What are we noticing?",
-  title: "What are we noticing?",
-  blocks: [
-    { t: "list", items: [
-      "What are we using as evidence that our education is working?",
-      "What might grades and other conventional measures of success fail to capture?",
-      "What happens when our actions don't reflect our stated values?",
-      "How do we distinguish individual responsibility from the conditions shaping our choices?",
-      "What would values-aligned innovation look like if the people affected helped define what success means?" ] },
-    { t: "p", text: "Participatory AI is one way to connect these questions to shared decision-making." },
-    { t: "links", items: [ { label: "Participatory AI, GILS", href: "participatory" } ] },
-    { t: "transition", text: "We've examined what we expect, what we practice, what we delegate, and who we're becoming. Now it's time to turn the inquiry toward our own lives and the problems we're investigating." }
-  ],
-  instructor: { say: "Share Google Forms aggregate results. Invite contrasting interpretations.", poll: 4 } },
+{ id: "4-4", section: 4, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 4,
+  kicker: "Movement 4 · Poll results",
+  title: "What are we seeing together?",
+  blocks: [ { t: "dialogue" } ],
+  instructor: { say: "Open Form 4, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
+    poll: 4, transition: "We've examined what we expect, what we practice, what we delegate, and who we're becoming. Now it's time to turn the inquiry toward our own lives and the problems we're investigating.", links: [{ label: "Participatory AI, GILS (optional connection to shared decision-making, if the conversation goes there)", href: "participatory" }] } },
 
 /* ---------------- SECTION 5 ---------------- */
 { id: "5-1", section: 5, kind: "assignment", theme: "light", rhythm: 6,
