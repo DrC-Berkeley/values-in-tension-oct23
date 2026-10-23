@@ -525,9 +525,9 @@ img.cover{background:none}
 @media (max-width:800px){.k-access .terms{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.k-access .terms{grid-template-columns:minmax(0,1fr)}}
 /* #4-2: kicker and title share the main text column's left edge */
-.slide.k-compare.twocol .inner>.kicker,.slide.k-compare.twocol .inner>h1{grid-column:2;text-align:left}
-.slide.k-compare.twocol .inner>.book{grid-row:1 / span 10}
-@media (max-width:800px){.slide.k-compare.twocol .inner>.kicker,.slide.k-compare.twocol .inner>h1{grid-column:1}.slide.k-compare.twocol .inner>.book{grid-row:auto}}
+.slide.k-book.twocol .inner>.kicker,.slide.k-book.twocol .inner>h1,.slide.k-compare.twocol .inner>.kicker,.slide.k-compare.twocol .inner>h1{grid-column:2;text-align:left}
+.slide.k-book.twocol .inner>.book,.slide.k-compare.twocol .inner>.book{grid-row:1 / span 10}
+@media (max-width:800px){.slide.k-book.twocol .inner>.kicker,.slide.k-book.twocol .inner>h1,.slide.k-compare.twocol .inner>.kicker,.slide.k-compare.twocol .inner>h1{grid-column:1}.slide.k-book.twocol .inner>.book,.slide.k-compare.twocol .inner>.book{grid-row:auto}}
 /* #5-1 attendance: smaller restrained submit button, centered, with set gaps */
 .slide.k-assignment .inner>.submit{margin-top:32px;justify-content:center}
 .k-assignment .submit-btn{font-size:.95em;padding:.65em 1.3em;border-radius:8px;min-height:44px}
