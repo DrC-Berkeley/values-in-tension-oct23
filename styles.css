@@ -507,3 +507,32 @@ img.cover{background:none}
 .slide.opening.k-reflect .inner,.slide.opening.k-closing .inner{max-width:640px}
 .slide.opening.k-reflect .art-wrap,.slide.opening.k-closing .art-wrap{justify-content:flex-end}
 .slide.opening.k-reflect .art,.slide.opening.k-closing .art{width:100%}
+
+/* ===== spacing pass ===== */
+/* scenes on #1-1, #3-1, #5-2 sit a little in from the right edge; the sun keeps the same inset */
+@media (min-width:901px){
+  .slide.opening.inset .art-wrap{padding-right:clamp(32px,3.2vw,48px)}
+  .slide.opening.inset .sun-abs{right:clamp(32px,3.2vw,48px)}
+}
+/* #5-3: very faint landscape across the full slide width, under the text (sticky at the bottom of the viewport) */
+.stage .slide{position:relative;z-index:1}
+.bg-land{position:sticky;bottom:0;height:min(34vh,320px);margin-top:calc(-1 * min(34vh,320px));z-index:0;pointer-events:none}
+.bg-land svg{display:block;width:100%;height:100%}
+.bg-land path{fill:#003262;opacity:.3}
+/* #2-2: four definitions span the same width as the event panel, equal columns, centered text */
+.k-access .terms,.k-access .event{width:min(100%,900px);max-width:900px;margin-inline:auto}
+.k-access .terms{grid-template-columns:repeat(4,minmax(0,1fr));text-align:center;gap:clamp(12px,2vw,24px)}
+@media (max-width:800px){.k-access .terms{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.k-access .terms{grid-template-columns:minmax(0,1fr)}}
+/* #4-2: kicker and title share the main text column's left edge */
+.slide.k-compare.twocol .inner>.kicker,.slide.k-compare.twocol .inner>h1{grid-column:2;text-align:left}
+.slide.k-compare.twocol .inner>.book{grid-row:1 / span 10}
+@media (max-width:800px){.slide.k-compare.twocol .inner>.kicker,.slide.k-compare.twocol .inner>h1{grid-column:1}.slide.k-compare.twocol .inner>.book{grid-row:auto}}
+/* #5-1 attendance: smaller restrained submit button, centered, with set gaps */
+.slide.k-assignment .inner>.submit{margin-top:32px;justify-content:center}
+.k-assignment .submit-btn{font-size:.95em;padding:.65em 1.3em;border-radius:8px;min-height:44px}
+.slide.k-assignment .inner>.rhythm{justify-content:center;margin-top:30px}
+/* #5-1: exact gaps (the column's own row gap is .6em, so the margins subtract it) and a smaller button */
+.slide.k-assignment .inner>.submit{margin-top:calc(32px - .6em)}
+.slide.k-assignment .inner>.rhythm{margin-top:calc(25px - .6em)}
+.k-assignment .submit-btn{font-size:.88em;padding:.55em 1.1em;min-height:40px;line-height:1.3}

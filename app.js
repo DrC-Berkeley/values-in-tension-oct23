@@ -97,7 +97,7 @@
     const big = ["title", "closing", "provocation"].includes(s.kind);
     const artKey = sec.art;
     const noArt = NOART.includes(s.kind) || !!s.noArt;
-    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${s.layout ? " " + s.layout : ""} ${OPENING.includes(s.id) ? "opening" : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
+    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${s.layout ? " " + s.layout : ""} ${OPENING.includes(s.id) ? "opening" : ""}${["1-1", "3-1", "5-2"].includes(s.id) ? " inset" : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
       <div class="inner">
         ${s.kicker ? `<p class="kicker rv">${esc(s.kicker)}</p>` : ""}
         <h1 class="rv" id="slide-title" tabindex="-1">${esc(s.title)}</h1>
@@ -123,7 +123,7 @@
     const shown = !(NOART.includes(s.kind) || s.noArt);
     sameArt = !first && shown && prevArt === artKey;
     document.title = s.id === "0-1" ? "Values in Tension · Who Are We Becoming?" : `${s.title} · Values in Tension`;
-    stage.innerHTML = slideHTML(s);
+    stage.innerHTML = slideHTML(s) + (s.id === "5-3" ? '<div class="bg-land" aria-hidden="true"><svg viewBox="0 0 1600 300" preserveAspectRatio="none"><path d="M0 214 Q180 150 420 196 T820 176 T1220 200 T1600 168 V300 H0Z"/></svg></div>' : "");
     prevArt = shown ? artKey : null;
     stage.className = "stage anim";
     stage.style.setProperty("--dx", "0px");
