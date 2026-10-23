@@ -44,7 +44,7 @@
       <p class="small">RSVPs happen on the event's own links. We don't collect them here.</p></div></div></section>`; },
     states: (b) => `<ol class="states">${b.items.map((i) => `<li class="rv"><h2>${esc(i.h)}</h2><p>${esc(i.d)}</p></li>`).join("")}</ol>`,
     explore: (b) => `<p class="explore rv">${esc(b.label)} ${ext(linkOf(b.href), esc(b.link))}</p>`,
-    turns: (b) => `<ol class="turns">${b.items.map((i) => `<li class="rv"><h2>${esc(i.h)}</h2><div><p class="tq"><span class="who">${esc(i.who)}</span> \u201c${esc(i.quote)}\u201d</p><p class="tc">${esc(i.ctx)}</p></div></li>`).join("")}</ol>`,
+    turns: (b) => `<ol class="turns">${b.items.map((i) => `<li class="rv"><h2>${esc(i.h)}</h2><div><p class="tq"><span class="who">${esc(i.who)}</span> \u201c${esc(i.quote)}\u201d</p><p class="tc">${esc(i.ctx)}</p>${i.link ? `<p class="tlink">${ext(i.link, "See this passage<span class=\"sr\">: " + esc(i.h) + "</span>")}</p>` : ""}</div></li>`).join("")}</ol>`,
     measures: (b) => `<div class="measures">${b.items.map((i) => `<section class="rv"><h2>${esc(i.h)}</h2><p>${esc(i.d)}</p><p class="mex"><span>For example</span><strong>${esc(i.lab)}</strong> ${esc(i.ex)}</p></section>`).join("")}</div>`,
     video: (b) => `<div class="watch rv"><p class="eyebrow">Testimony</p><h2 class="vtitle">${esc(b.title)}</h2><p class="vby">${esc(b.by)}</p>
       <p><a class="watchbtn" href="${esc(L.video)}" target="_blank" rel="noopener noreferrer">Watch on LinkedIn<span class="sr"> (opens in a new tab)</span> ↗</a></p></div>`,

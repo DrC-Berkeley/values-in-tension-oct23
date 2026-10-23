@@ -536,3 +536,6 @@ img.cover{background:none}
 .slide.k-assignment .inner>.submit{margin-top:calc(32px - .6em)}
 .slide.k-assignment .inner>.rhythm{margin-top:calc(25px - .6em)}
 .k-assignment .submit-btn{font-size:.88em;padding:.55em 1.1em;min-height:40px;line-height:1.3}
+
+.turns .tlink{margin:.3em 0 0;font-size:.78em}
+.k-thought .linkrow{font-size:.9em;margin:0}

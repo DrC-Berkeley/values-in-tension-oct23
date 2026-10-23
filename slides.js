@@ -169,17 +169,21 @@ window.SLIDES = [
 
 { id: "3-2", section: 3, kind: "thought", theme: "light", rhythm: 1,
   kicker: "A thought experiment",
-  title: "Is intelligence a ladder?",
+  title: "What counts as intelligence?",
   blocks: [
     { t: "p", text: "An exchange with AI moved from fears about superintelligence to questions about voice, authority, and what counts as intelligence." },
+    { t: "links", items: [ { label: "Read the full conversation", href: "https://docs.google.com/document/d/1qplVna2Tysbusrb9NQIZYh10Ex8p7TQM2W9xfFsoBT4/edit?tab=t.0" } ] },
     { t: "note", text: "Selected excerpts from an instructor\u2013AI conversation. The model\u2019s responses are an artifact to examine, not verified evidence or scientific authority." },
     { t: "turns", items: [
       { h: "From catastrophe to dependence", who: "AI response", quote: "We might surrender meaningful control long before any system forcibly takes it.",
-        ctx: "Formal authority can remain while knowledge, practice, and institutional capacity erode." },
+        ctx: "Formal authority can remain while knowledge, practice, and institutional capacity erode.",
+        link: "https://docs.google.com/document/d/1qplVna2Tysbusrb9NQIZYh10Ex8p7TQM2W9xfFsoBT4/edit?tab=t.0#heading=h.h6ippmkk0zmf" },
       { h: "Who is speaking?", who: "Dr. C", quote: "You're writing as if you're a human",
-        ctx: "I interrupted its use of \u201cwe\u201d: a fluent synthesis can sound like human concern or independent moral judgment." },
-      { h: "Questioning the ladder", who: "Dr. C", quote: "our intelligence is limited to our container",
-        ctx: "I challenged ranking human, machine, animal, and ecological ways of knowing on one scale. Particular capabilities do not establish overall superiority; embodiment and relationships shape what each can know." } ] },
+        ctx: "I interrupted its use of \u201cwe\u201d: a fluent synthesis can sound like human concern or independent moral judgment.",
+        link: "https://docs.google.com/document/d/1qplVna2Tysbusrb9NQIZYh10Ex8p7TQM2W9xfFsoBT4/edit?tab=t.0#heading=h.sjc9lk2e5h37" },
+      { h: "Comparing forms of intelligence", who: "Dr. C", quote: "our intelligence is limited to our container",
+        ctx: "I challenged ranking human, machine, animal, and ecological ways of knowing on one scale. Particular capabilities do not establish overall superiority; embodiment and relationships shape what each can know.",
+        link: "https://docs.google.com/document/d/1qplVna2Tysbusrb9NQIZYh10Ex8p7TQM2W9xfFsoBT4/edit?tab=t.0#heading=h.lpydy1eurihz" } ] },
     { t: "q", label: "Open inquiry", text: "What changes when we compare particular capacities without ranking whole forms of intelligence?" }
   ] },
 
