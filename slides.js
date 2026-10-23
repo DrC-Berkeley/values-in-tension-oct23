@@ -1,27 +1,20 @@
 /* ============================================================
    Values in Tension: all instructional content lives here.
-   Edit wording, links, order, and notes in this file only.
+   Edit wording, links, and order in this file only.
    Block types: p, lead, q (key question), list, terms, compare,
    article, poll, flyer, video, book, links, assign, note
    `rhythm`: index (or [from,to]) into RHYTHM below.
-   `verify`: shown only in instructor mode; flags unverified items.
    ============================================================ */
 
 window.RHYTHM = ["Encounter", "Reflect", "Poll", "Interpret", "Dialogue", "Reconsider", "Act"];
 
 window.SECTIONS = [
-  { id: 0, label: "Opening inquiry", short: "Opening", time: "9:10–9:15", mins: 5, art: "campanile",
-    purpose: "Set the tone: a live inquiry, not a lecture. Name the tension between what we value and what we practice, and say plainly that the polls have no correct answers." },
-  { id: 1, label: "What do we expect?", short: "Expect", time: "9:15–9:30", mins: 15, art: "gate",
-    purpose: "Open with a real provocation from a Berkeley-adjacent student voice, before any polling. The aim is to surface what students and educators expect of each other, not to settle the AI-in-teaching debate." },
-  { id: 2, label: "What do we practice?", short: "Practice", time: "9:30–9:45", mins: 15, art: "library",
-    purpose: "Separate four things that are easy to blur: attention habits, accessibility, productive challenge, and shared responsibility. Avoid treating any one way of attending or learning as the norm." },
-  { id: 3, label: "What do we delegate?", short: "Delegate", time: "9:45–10:00", mins: 15, art: "stadium",
-    purpose: "Move from replacing work to delegating judgment. Present the speaker's argument as an argument, and the thought experiment as hypothetical. Do not present AI superintelligence or human extinction as inevitable." },
-  { id: 4, label: "Who are we becoming?", short: "Become", time: "10:00–10:15", mins: 15, art: "hills",
-    purpose: "Shift from outcomes to practices to identity, and connect to participatory design and shared decision-making. This is about intentional living and learning, not only AI use." },
-  { id: 5, label: "From inquiry to action", short: "Reflect", time: "10:15–10:30", mins: 15, art: "campanile",
-    purpose: "The full 15 minutes belong to the individual attendance reflection in bCourses. No automatic navigation. Stay on the assignment slide while students write." }
+  { id: 0, label: "Opening inquiry", short: "Opening", time: "9:10–9:15", mins: 5, art: "campanile" },
+  { id: 1, label: "What do we expect?", short: "Expect", time: "9:15–9:30", mins: 15, art: "gate" },
+  { id: 2, label: "What do we practice?", short: "Practice", time: "9:30–9:45", mins: 15, art: "library" },
+  { id: 3, label: "What do we delegate?", short: "Delegate", time: "9:45–10:00", mins: 15, art: "stadium" },
+  { id: 4, label: "Who are we becoming?", short: "Become", time: "10:00–10:15", mins: 15, art: "hills" },
+  { id: 5, label: "From inquiry to action", short: "Reflect", time: "10:15–10:30", mins: 15, art: "campanile" }
 ];
 
 window.LINKS = {
@@ -38,20 +31,16 @@ window.LINKS = {
   bcourses: "https://bcourses.berkeley.edu/courses/1555498/assignments/9161814?module_item_id=17865467"
 };
 
-/* Respondent URLs (student-facing). Results links are instructor-only and shown in instructor mode. */
+/* Respondent URLs (student-facing). */
 window.POLLS = {
   1: { n: 1, icon: "dialogue",
-       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSdqdvRMzfSO-qbrEpiEiEGojhlwX4Thv0mKBzIoYNuAn4IQmA/viewform",
-       results: "https://docs.google.com/forms/d/1iKUoHHSCJG-oQpBAztn5SghhhH5VImWwnv-ngGCnSss/edit#responses" },
+       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSdqdvRMzfSO-qbrEpiEiEGojhlwX4Thv0mKBzIoYNuAn4IQmA/viewform" },
   2: { n: 2, icon: "attention",
-       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSdyScddXB5g6mhNtKDQOWOCemN_I-e-6slojARsfDIG7q9kbQ/viewform",
-       results: "https://docs.google.com/forms/d/1ETy8dps8oFM-3ofI4fh9wnZw5Jq4LUaMk95tKysNCk0/edit#responses" },
+       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSdyScddXB5g6mhNtKDQOWOCemN_I-e-6slojARsfDIG7q9kbQ/viewform" },
   3: { n: 3, icon: "scales",
-       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSexeoVtvKvxgT6WZEkWBTyFf3eknaiXMdmwrSjaNdNfiu1YQA/viewform",
-       results: "https://docs.google.com/forms/d/1Ch5eQsQtJ0uXJCPSEe2wNOq0PWxHmzCotaPSGBouJU4/edit#responses" },
+       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSexeoVtvKvxgT6WZEkWBTyFf3eknaiXMdmwrSjaNdNfiu1YQA/viewform" },
   4: { n: 4, icon: "path",
-       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSfpCkEyriVfJtUCNKW5iXP8uFPTbF3Al0yBzXJPdGpi5Tw_Gw/viewform",
-       results: "https://docs.google.com/forms/d/18DVcYiIBtPReMqqg2iHXhKySrWWj8FDMuT15joF0jTs/edit#responses" }
+       respondent: "https://docs.google.com/forms/d/e/1FAIpQLSfpCkEyriVfJtUCNKW5iXP8uFPTbF3Al0yBzXJPdGpi5Tw_Gw/viewform" }
 };
 
 /* Shared structure for every post-poll slide: results, then noticing, then dialogue.
@@ -59,17 +48,14 @@ window.POLLS = {
 window.DIALOGUE = {
   lead: "Let\u2019s look at our poll results together.",
   noticing: ["What patterns or differences do you notice?", "What surprised you or makes you curious?"],
-  dialogue: ["Who would like to explain what shaped their choice?", "If you chose Other, would you like to share your perspective?"],
-  note: "Sharing is always voluntary. Nothing on screen names anyone or shows written answers.",
-  close: "Respond to one another, and reconsider what these charts can and cannot tell us."
+  dialogue: ["Who would like to explain what shaped their choice?", "If you chose Other, would you like to share your perspective?"]
 };
 
 window.SLIDES = [
 /* ---------------- SECTION 0 ---------------- */
 { id: "0-1", section: 0, kind: "title", theme: "dark", rhythm: null,
   title: "Values in Tension", sub: "Who Are We Becoming?",
-  blocks: [ { t: "lead", text: "A participatory inquiry into learning, attention, AI, agency, and the choices that shape our futures." } ],
-  instructor: { say: "Welcome. Begin at 9:10.", move: "Use the right arrow or Next to begin." } },
+  blocks: [ { t: "lead", text: "A participatory inquiry into learning, attention, AI, agency, and the choices that shape our futures." } ] },
 
 { id: "0-2", section: 0, kind: "inquiry", theme: "light", rhythm: null,
   kicker: "Today's inquiry",
@@ -88,8 +74,7 @@ window.SLIDES = [
     { t: "p", text: "Today is a live inquiry. We'll encounter ideas, respond individually, examine our collective perspectives, and discuss what those responses might reveal." },
     { t: "p", text: "There are no correct answers to the polls." },
     { t: "q", text: "Our purpose is not agreement. It is inquiry." }
-  ],
-  instructor: { say: "Name the rhythm out loud: Encounter, Reflect, Poll, Interpret, Dialogue, Reconsider, Act. Mention that the last 15 minutes are the attendance reflection." } },
+  ] },
 
 /* ---------------- SECTION 1 ---------------- */
 { id: "1-1", section: 1, kind: "provocation", theme: "dark", rhythm: 0,
@@ -114,21 +99,17 @@ window.SLIDES = [
     href: "article",
     questions: [
       "What does this passage ask educators to provide, and what role does it imagine for the learner?",
-      "Where do you see connection, participation, or passive reception?" ] } ],
-  instructor: { say: "Read the passage aloud or give 60 seconds of silent reading. Then ask the two questions. Invite students to look closely at \u201cput information into my brain\u201d and \u201cwilling to receive it\u201d: does the passage describe active participation, or cast the learner as a recipient? Keep this a question about the text, not a verdict on the author.",
-    verify: "The passage is the instructor-supplied text, entered verbatim. Headline, byline, and date were checked against the live article on Oct 22. Compare the passage with the original if you want a final wording check." } },
+      "Where do you see connection, participation, or passive reception?" ] } ] },
 
 { id: "1-3", section: 1, kind: "poll", theme: "light", rhythm: 2, poll: 1,
   kicker: "Movement 1 · Poll",
   title: "What do we expect from educators, and what do we contribute as learners?",
   blocks: [ { t: "poll", poll: 1 } ] },
 
-{ id: "1-4", section: 1, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 1,
+{ id: "1-4", section: 1, kind: "discuss", theme: "light", rhythm: [3, 4],
   kicker: "Movement 1 · Poll results",
   title: "What are we seeing together?",
-  blocks: [ { t: "dialogue" } ],
-  instructor: { say: "Open Form 1, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
-    poll: 1, transition: "What happens when students and educators agree that learning matters, but disagree about the practices required to make it meaningful?" } },
+  blocks: [ { t: "dialogue" } ] },
 
 /* ---------------- SECTION 2 ---------------- */
 { id: "2-1", section: 2, kind: "cues", theme: "light", rhythm: 0,
@@ -144,9 +125,7 @@ window.SLIDES = [
       { h: "The request in the present", d: "Shorter, more direct materials." },
       { h: "What happened when we looked together", d: "The needed information was in the syllabus. Consulted twice." },
       { h: "The turn toward responsibility", d: "Attention habits now. An expectation of adapting later." } ] }
-  ],
-  instructor: { say: "Narrate the conversation first, in your own words; the cues are memory prompts, not quotations. The guiding question is held for the whole movement, not an immediate discussion stop. Do not identify the student. Keep they/them/their.",
-    verify: "The four cue labels are provisional paraphrases of the approved anonymized account. The raw transcript is not in this project, so no key moments or exact quotes are shown. Supply selected exact lines to add them. [INSTRUCTOR DECISION NEEDED]" } },
+  ] },
 
 { id: "2-2", section: 2, kind: "access", theme: "light", rhythm: 1,
   kicker: "Movement 2 · Access",
@@ -166,20 +145,17 @@ window.SLIDES = [
       check: "Check the RSVP page for current location and event details.",
       host: "Hosted by the SLC Strategic Learning Program Neurodivergent Student Advisory Board",
       links: [ { label: "Student RSVP (Berkeley sign-in)", href: "nnStudent" }, { label: "Faculty RSVP (Berkeley sign-in)", href: "nnFaculty" }, { label: "About the Advisory Board", href: "nnBoard" } ] }
-  ],
-  instructor: { verify: "The flyer image is shown unchanged. It prints Student Center as the venue, but the student RSVP page (checked in your Berkeley-signed-in browser) lists 12\u20132 pm with an official program 12:30\u20132 pm, at 127 Dwinelle Hall. The slide therefore gives only the date and 12\u20132 PM and tells students to check the RSVP page for the current location; it does not state a venue. The RSVP link needs Berkeley sign-in (an outside account sees \u2018You need access\u2019). The Advisory Board link works. The RTL page was checked on Oct 22 and does not mention the event. RSVPs happen on the event's own links; this site collects none. The flyer file is about 3.5 MB; compress it if mobile load time matters." } },
+  ] },
 
 { id: "2-3", section: 2, kind: "poll", theme: "light", rhythm: 2, poll: 2,
   kicker: "Movement 2 · Poll",
   title: "How should we navigate the tension between support, challenge, and learner agency?",
   blocks: [ { t: "poll", poll: 2 } ] },
 
-{ id: "2-4", section: 2, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 2,
+{ id: "2-4", section: 2, kind: "discuss", theme: "light", rhythm: [3, 4],
   kicker: "Movement 2 · Poll results",
   title: "What are we seeing together?",
-  blocks: [ { t: "dialogue" } ],
-  instructor: { say: "Open Form 2, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
-    poll: 2, transition: "What happens when technology doesn't merely support our learning, but increasingly performs the work through which we develop expertise?" } },
+  blocks: [ { t: "dialogue" } ] },
 
 /* ---------------- SECTION 3 ---------------- */
 { id: "3-1", section: 3, kind: "provocation", theme: "dark", rhythm: 0,
@@ -189,35 +165,33 @@ window.SLIDES = [
     { t: "p", text: "Australian parliamentary testimony concerning AI and labor." },
     { t: "p", text: "Dr Richard Denniss, co-CEO of The Australia Institute, argues that economic incentives behind AI adoption are closely connected to replacing human labor. This is his argument, not an uncontested fact." },
     { t: "video", title: "Testimony on AI and Labor", by: "Dr Richard Denniss \u00b7 Australian parliamentary hearing" }
-  ],
-  instructor: { say: "Present this as the speaker's argument. Ask students what they would want to check before agreeing or disagreeing.",
-    links: [ { label: "Source: The Point, 22 October 2026, reporting Dr Denniss's testimony to the Joint Select Committee on Artificial Intelligence", href: "https://thepoint.com.au/new/261022-not-an-unintended-consequence-mass-unemployment-is-the-ai-business-model" },
-             { label: "Profile: Richard Denniss, The Australia Institute", href: "https://australiainstitute.org.au/expert/richard-denniss/page/2/" } ],
-    verify: "Speaker and role are confirmed by The Point article (co-CEO of The Australia Institute; Joint Select Committee on Artificial Intelligence; 22 Oct 2026). The profile page returned an access error to my automated fetch, so the title is not independently re-confirmed there. The article does not give a separate hearing date. The page links out to the LinkedIn post and no longer embeds it (the embed showed another user's whole post and caption). I cannot confirm the linked clip matches the original parliamentary recording; check captions on LinkedIn before class, and supply the original video or a transcript if you have one." } },
+  ] },
 
 { id: "3-2", section: 3, kind: "thought", theme: "light", rhythm: 1,
   kicker: "A thought experiment",
-  title: "When better answers become dependence",
+  title: "Is intelligence a ladder?",
   blocks: [
-    { t: "p", text: "Imagine an AI system that routinely gives more accurate answers than the people using it. They consult it more often and practice making independent judgments less often." },
-    { t: "p", text: "People still have the final say. But over time, they may become less able to evaluate or challenge the system\u2019s recommendations." },
-    { t: "q", label: "Key distinction", text: "Greater capability does not automatically confer moral authority." },
-    { t: "q", label: "Question", text: "What would people need to keep practicing for their control to remain meaningful?" }
-  ],
-  instructor: { say: "This is a hypothetical, not a forecast. Do not present AI superintelligence or human extinction as inevitable. Elaborate in your own words; no conversation quotations appear on the slide. Possible follow-up: capability versus legitimate authority, and who decides.",
-    verify: "Broader context kept for narration: Imagine a future in which AI performs much of the intellectual work people once developed expertise through doing. Research, analysis, diagnosis, design, and decision-making increasingly become automated. The results may be faster and more accurate. But what happens to our ability to question those results if we no longer develop the capabilities required to evaluate them? Is intelligence best understood as a hierarchy, or might different forms of intelligence have distinct capabilities, limitations, and ways of relating to the world? The slide has no figure, no animation and no sound." } },
+    { t: "p", text: "An exchange with AI moved from fears about superintelligence to questions about voice, authority, and what counts as intelligence." },
+    { t: "note", text: "Selected excerpts from an instructor\u2013AI conversation. The model\u2019s responses are an artifact to examine, not verified evidence or scientific authority." },
+    { t: "turns", items: [
+      { h: "From catastrophe to dependence", who: "AI response", quote: "We might surrender meaningful control long before any system forcibly takes it.",
+        ctx: "Formal authority can remain while knowledge, practice, and institutional capacity erode." },
+      { h: "Who is speaking?", who: "Dr. C", quote: "You're writing as if you're a human",
+        ctx: "I interrupted its use of \u201cwe\u201d: a fluent synthesis can sound like human concern or independent moral judgment." },
+      { h: "Questioning the ladder", who: "Dr. C", quote: "our intelligence is limited to our container",
+        ctx: "I challenged ranking human, machine, animal, and ecological ways of knowing on one scale. Particular capabilities do not establish overall superiority; embodiment and relationships shape what each can know." } ] },
+    { t: "q", label: "Open inquiry", text: "What changes when we compare particular capacities without ranking whole forms of intelligence?" }
+  ] },
 
 { id: "3-3", section: 3, kind: "poll", theme: "light", rhythm: 2, poll: 3,
   kicker: "Movement 3 · Poll",
   title: "What should determine what we delegate, and what we retain?",
   blocks: [ { t: "poll", poll: 3 } ] },
 
-{ id: "3-4", section: 3, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 3,
+{ id: "3-4", section: 3, kind: "discuss", theme: "light", rhythm: [3, 4],
   kicker: "Movement 3 · Poll results",
   title: "What are we seeing together?",
-  blocks: [ { t: "dialogue" } ],
-  instructor: { say: "Open Form 3, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
-    poll: 3, transition: "If our capabilities and identities are shaped partly by what we repeatedly do, how can we become more intentional about those practices?" } },
+  blocks: [ { t: "dialogue" } ] },
 
 /* ---------------- SECTION 4 ---------------- */
 { id: "4-1", section: 4, kind: "book", theme: "light", rhythm: 0, layout: "twocol",
@@ -227,15 +201,11 @@ window.SLIDES = [
     { t: "book", src: "twelve-week-year.webp", alt: "Book cover: The 12 Week Year, Get more done in 12 weeks than others do in 12 months, by Brian P. Moran and Michael Lennington, Wiley.",
       title: "The 12 Week Year", by: "Brian P. Moran and Michael Lennington", href: "book", label: "Book record" },
     { t: "p", text: "A desired outcome tells us what we hope to achieve. A recurring practice tells us what we're doing to make that outcome possible." },
-    { t: "terms", items: [
-      { h: "Lag measures", d: "Outcomes that show what happened." },
-      { h: "Lead measures", d: "Actions we can intentionally practice that are likely to influence those outcomes." } ] },
-    { t: "example", items: [
-      { h: "Lag measure:", d: "Deliver an excellent presentation." },
-      { h: "Lead measure:", d: "Rehearse aloud regularly, seek feedback, and revise." } ] },
+    { t: "measures", items: [
+      { h: "Lag measures", d: "Outcomes that show what happened.", lab: "Lag measure:", ex: "Deliver an excellent presentation." },
+      { h: "Lead measures", d: "Actions we can intentionally practice that are likely to influence those outcomes.", lab: "Lead measure:", ex: "Rehearse aloud regularly, seek feedback, and revise." } ] },
     { t: "q", text: "What happens when we achieve the outcome but haven't developed the capabilities or relationships we hoped would come with it?" }
-  ],
-  instructor: { verify: "Cover image is the supplied actual cover (Wiley is printed on it). The 2013 publication year came from search results only. The book link goes to an O\u2019Reilly library record found by search; swap in your preferred link in LINKS.book." } },
+  ] },
 
 { id: "4-2", section: 4, kind: "compare", theme: "light", rhythm: 1, layout: "twocol",
   kicker: "Movement 4 · From practices to identity",
@@ -244,37 +214,28 @@ window.SLIDES = [
     { t: "p", text: "Mindful self-discipline is not simply about willpower, productivity, or forcing ourselves to comply." },
     { t: "p", text: "It involves developing awareness of the relationship between our intentions, choices, habits, and the person we want to become." },
     { t: "book", src: "mindful-self-discipline.jpg", alt: "Book cover: Mindful Self-Discipline, Living with purpose and achieving your goals in a world of distractions, by Giovanni Dienstmann.",
-      title: "Mindful Self-Discipline", by: "Giovanni Dienstmann", href: "mindful", label: "Book on Amazon",
-      role: "The 12 Week Year connects outcomes to recurring actions. Mindful Self-Discipline brings awareness and intention, and helps us align what we do with our values and the person we are becoming." },
+      title: "Mindful Self-Discipline", by: "Giovanni Dienstmann", href: "mindful", label: "Book on Amazon" },
+    { t: "p", text: "The 12 Week Year connects outcomes to recurring actions. Mindful Self-Discipline brings awareness and intention, and helps us align what we do with our values and the person we are becoming." },
     { t: "compare", items: [
       { h: "The 12 Week Year", d: "What recurring actions will help produce the outcomes I want?" },
       { h: "Mindful self-discipline", d: "How do my actions express and reinforce the person I want to become?" },
       { h: "Disability justice and participatory design", d: "What conditions and supports make meaningful participation possible, and who helps shape those conditions?" } ] },
     { t: "note", text: "This is about intentional living and learning, not simply AI use." }
-  ],
-  instructor: { verify: "Book details (title, author, ASIN 0645138916) were read from the Amazon page behind your link and a second listing at acepremier.com; the cover is the observed product cover. The product description stresses mindfulness and awareness more than force or willpower. No quotations from the book are used." } },
+  ] },
 
 { id: "4-3", section: 4, kind: "poll", theme: "light", rhythm: 2, poll: 4,
   kicker: "Movement 4 · Poll",
   title: "What does it mean to live and learn in alignment with our values?",
   blocks: [ { t: "poll", poll: 4 } ] },
 
-{ id: "4-4", section: 4, kind: "discuss", theme: "light", rhythm: [3, 4], poll: 4,
+{ id: "4-4", section: 4, kind: "discuss", theme: "light", rhythm: [3, 4],
   kicker: "Movement 4 · Poll results",
   title: "What are we seeing together?",
-  blocks: [ { t: "dialogue" }, { t: "explore", label: "Explore further:", link: "Participatory AI", href: "participatory" } ],
-  instructor: { say: "Open Form 4, go to Responses, then the Summary tab, and share that screen on Zoom. Show the charts only. Keep the Individual and Question tabs closed. Written Other responses can identify people, so do not display or read them aloud; if someone chose Other, invite them to speak for themselves.",
-    poll: 4, transition: "We've examined what we expect, what we practice, what we delegate, and who we're becoming. Now it's time to turn the inquiry toward our own lives and the problems we're investigating.", links: [{ label: "Participatory AI, GILS (optional connection to shared decision-making, if the conversation goes there)", href: "participatory" }] } },
+  blocks: [ { t: "dialogue" }, { t: "explore", label: "Explore further:", link: "Participatory AI", href: "participatory" } ] },
 
 /* ---------------- SECTION 5 ---------------- */
-{ id: "5-1", section: 5, kind: "assignment", theme: "light", rhythm: 6,
-  kicker: "Attendance assignment · 10:15–10:30",
-  title: "From Inquiry to Action",
-  blocks: [ { t: "assign" } ],
-  instructor: { say: "Stay on this slide for the full 15 minutes. No automatic navigation. Attendance is submitted through bCourses only." } },
-
 { id: "5-2", section: 5, kind: "reflect", theme: "light", rhythm: 5,
-  kicker: "After the reflection",
+  kicker: "Closing inquiry",
   title: "From individual perspectives to collective understanding",
   blocks: [
     { t: "p", text: "Today, we began with questions rather than predetermined answers." },
@@ -297,5 +258,10 @@ window.SLIDES = [
     { t: "p", text: "They are also reflected in what we practice, what we delegate, the relationships we cultivate, and the systems we help create." },
     { t: "p", text: "Values-aligned innovation asks us to examine not only the outcomes we pursue, but also the processes and relationships through which we pursue them." },
     { t: "q", text: "What will you choose to practice, and what might you help change?" }
-  ] }
+  ] },
+
+{ id: "5-1", section: 5, kind: "assignment", theme: "light", rhythm: 6,
+  kicker: "Attendance assignment · 10:15–10:30",
+  title: "From Inquiry to Action",
+  blocks: [ { t: "assign" } ] }
 ];
