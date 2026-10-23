@@ -75,17 +75,33 @@
     }
   };
 
+  /* Opening scene (#0-1 and #0-2): a large architectural anchor. Tall Campanile, long landscape, and a large independent sun. */
+  SHAPES.opening = Object.assign({}, SHAPES.campanile, {
+    label: "Illustration: the Campanile (Sather Tower) in dark Berkeley blue with a gold clock face, rising above long campus hills, with a large sun in the upper right.",
+    tx: 118, s: 1, vb: "0 0 373 400", band: "M0 332 Q70 306 180 326 T373 316 V372 H0Z", gx: [0, 373],
+    trail: "M8 392 Q100 380 190 388 T365 382", sunAbs: true
+  });
+  /* Movement 1 opening (#1-1): the Sather Gate style entrance enlarged and set low, with the sun high in the upper right */
+  SHAPES.gateopening = Object.assign({}, SHAPES.gate, {
+    label: "Illustration: a Sather Gate style entrance in dark Berkeley blue with gold lamps and a gold finial, standing low in a long campus landscape, with a large sun in the upper right.",
+    tx: 200, s: 1.06, ground: 452, vb: "0 0 400 480", band: "M0 414 Q90 390 190 408 T400 398 V452 H0Z", gx: [0, 400],
+    trail: "M10 470 Q110 456 220 464 T390 458", sunAbs: true
+  });
   function render(key) {
     const a = SHAPES[key];
     let i = 0;
     const lines = a.shapes.filter((s) => s[2]).map((s) => `<path class="ln" pathLength="1" style="--i:${i++}" d="${s[0]}"/>`).join("");
     const fills = a.shapes.map((s) => `<path class="a-${s[1]}" d="${s[0]}"/>`).join("");
-    const T = `transform="translate(${a.tx} ${GROUND}) scale(${a.s}) translate(-200 ${-GROUND})"`;
-    const sun = `<g class="a-pulse"><circle class="a-halo a-fade" cx="${SUN[0]}" cy="${SUN[1]}" r="${SUN[2] * 2}"/><circle class="a-sun a-fade" cx="${SUN[0]}" cy="${SUN[1]}" r="${SUN[2]}"/></g>`;
-    const base = a.noBand ? "" : `<path class="a-far" d="${BAND}"/>`;
-    return `<svg class="art art-${key}" role="img" aria-label="${a.label}" viewBox="0 0 400 440" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-      ${sun}${base}<g ${T}><g class="a-fills a-fade">${fills}</g><g class="a-details a-fade">${a.details}</g><g class="a-lines">${lines}</g></g>
-      <path class="a-ground" d="M0 ${GROUND} H400"/><path class="a-trail" d="${a.trail || TRAIL}"/></svg>`;
+    const GR = a.ground || GROUND;
+    const T = `transform="translate(${a.tx} ${GR}) scale(${a.s}) translate(-200 ${-GROUND})"`;
+    const SU = a.sun || SUN;
+    const sun = `<g class="a-pulse"><circle class="a-halo a-fade" cx="${SU[0]}" cy="${SU[1]}" r="${a.halo || SU[2] * 2}"/><circle class="a-sun a-fade" cx="${SU[0]}" cy="${SU[1]}" r="${SU[2]}"/></g>`;
+    const base = a.noBand ? "" : `<path class="a-far" d="${a.band || BAND}"/>`;
+    /* big opening scenes: the sun is its own element, anchored to the top-right corner of the slide, independent of the landmark */
+    const sunAbs = a.sunAbs ? `<svg class="sun-abs" viewBox="0 0 210 210" aria-hidden="true" focusable="false"><g class="a-pulse"><circle class="a-halo a-fade" cx="105" cy="105" r="105"/><circle class="a-sun a-fade" cx="105" cy="105" r="65"/></g></svg>` : "";
+    return `${sunAbs}<svg class="art art-${key}" role="img" aria-label="${a.label}" viewBox="${a.vb || "0 0 400 440"}" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+      ${a.sunAbs ? "" : sun}${base}<g ${T}><g class="a-fills a-fade">${fills}</g><g class="a-details a-fade">${a.details}</g><g class="a-lines">${lines}</g></g>
+      <path class="a-ground" d="M${(a.gx || [0, 400])[0]} ${GR} H${(a.gx || [0, 400])[1]}"/><path class="a-trail" d="${a.trail || TRAIL}"/></svg>`;
   }
 
   const art = {};

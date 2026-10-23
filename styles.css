@@ -430,3 +430,27 @@ img.cover{background:none}
 .twocol h1{font-size:clamp(1.7rem,2vw+.9rem,2.5rem)}
 .twocol img.cover{width:clamp(110px,10vw,150px)}
 .twocol .inner>*{font-size:.96em}
+
+/* ===== opening slides (#0-1, #0-2): the scene anchors the lower-right of the slide ===== */
+.slide.opening{--rail:clamp(300px,40vw,780px);column-gap:clamp(16px,2vw,40px);padding-right:0;padding-bottom:0;align-items:center}
+.slide.opening .inner{max-width:640px;padding-bottom:clamp(24px,5vh,56px)}
+.slide.opening h1{font-size:clamp(2.2rem,3.9vw,5rem)}
+.slide.opening .art-wrap{align-self:stretch;align-items:flex-end;justify-content:flex-end;padding:0}
+.slide.opening .art{width:100%;height:100%;max-height:none;position:static;overflow:hidden}
+@media (max-width:900px){.slide.opening{padding-right:clamp(20px,6vw,96px);padding-bottom:0}.slide.opening .art-wrap{height:260px}.slide.opening .art{height:100%;width:100%}}
+
+/* opening scenes stay anchored to the visible bottom of the stage even when the text column scrolls */
+.slide.opening .art-wrap{position:sticky;top:0;align-self:start;height:var(--stageH,100%)}
+.slide.opening.k-provocation .inner{font-size:.92em;gap:.7em}
+@media (max-width:900px){.slide.opening .art-wrap{position:static;height:260px;align-self:auto}}
+.slide.opening{padding-top:0}
+.slide.opening .inner{padding-top:clamp(24px,5vh,56px)}
+@media (max-width:900px){.slide.opening .inner{padding-top:clamp(16px,3vh,32px)}}
+
+/* independent top-right sun for the opening scenes (#0-1, #0-2, #1-1) */
+.sun-abs{position:absolute;right:clamp(16px,2vw,32px);top:clamp(8px,1.2vh,20px);width:clamp(150px,14.6vw,300px);height:auto;overflow:visible;z-index:1;pointer-events:none}
+@media (max-width:900px){.sun-abs{width:84px;right:10px;top:6px}}
+@media (max-width:900px){.slide.opening .art-wrap{position:relative;top:auto}}
+
+/* Independent scene sun retains the Berkeley palette outside the art SVG. */
+.sun-abs .a-sun{fill:#FDB515}.sun-abs .a-halo{fill:#8A93A0;opacity:.55}

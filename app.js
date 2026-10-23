@@ -4,6 +4,8 @@
   const S = window.SLIDES, SEC = window.SECTIONS, L = window.LINKS, P = window.POLLS, R = window.RHYTHM;
   const $ = (s, r) => (r || document).querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const OPENING = ["0-1", "0-2", "1-1"];
+  const SCENE = { "0-1": "opening", "0-2": "opening", "1-1": "gateopening" }; // opening scene: large Campanile anchor on the lower right
   const NOART = ["excerpt", "discuss", "cues", "book", "compare", "access", "motion", "assignment", "account", "thought", "poll"]; // reading, results, and content-heavy slides carry no campus art
   const idx = (id) => S.findIndex((s) => s.id === id);
   const ext = (href, label) => `<a class="ext" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}<span class="sr"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>`;
@@ -104,7 +106,7 @@
     const ins = s.instructor || {};
     const pollRes = ins.poll ? `<p><a class="ext" href="${esc(P[ins.poll].results)}" target="_blank" rel="noopener noreferrer">Open Form ${ins.poll} results ↗</a></p>` : "";
     const noArt = NOART.includes(s.kind) || !!s.noArt;
-    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${s.layout ? " " + s.layout : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
+    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${s.layout ? " " + s.layout : ""} ${OPENING.includes(s.id) ? "opening" : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
       <div class="inner">
         ${s.kicker ? `<p class="kicker rv">${esc(s.kicker)}</p>` : ""}
         <h1 class="rv" id="slide-title" tabindex="-1">${esc(s.title)}</h1>
@@ -112,7 +114,7 @@
         ${s.blocks.map((b) => B[b.t](b)).join("")}
         ${rhythmStrip(s.rhythm)}
       </div>
-      ${noArt ? "" : `<div class="art-wrap${replay || sameArt ? (replay ? "" : " art-static") : ""}">${window.ART[artKey]()}</div>`}
+      ${noArt ? "" : `<div class="art-wrap${replay || sameArt ? (replay ? "" : " art-static") : ""}">${window.ART[SCENE[s.id] || artKey]()}</div>`}
       <aside class="instr" aria-label="Instructor notes">
         <p class="instr-h">Instructor · ${esc(sec.label)} · ${sec.time}</p>
         <p><strong>Purpose.</strong> ${esc(sec.purpose)}</p>
@@ -147,6 +149,7 @@
     stage.className = "stage anim";
     stage.style.setProperty("--dx", "0px");
     document.body.dataset.theme = s.theme;
+    stage.style.setProperty("--stageH", stage.clientHeight + "px");
     document.body.classList.toggle("instructor", instructor);
     stage.scrollTop = 0;
     $("#count").textContent = `${cur + 1} / ${S.length}`;
@@ -202,6 +205,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     buildProgress();
     window.addEventListener("hashchange", () => fromHash(false));
+    window.addEventListener("resize", () => $("#stage").style.setProperty("--stageH", $("#stage").clientHeight + "px"));
     $("#stage").addEventListener("click", (e) => {
       const btn = e.target.closest && e.target.closest(".vbtn"); if (!btn) return;
       const box = btn.parentElement.nextElementSibling, open = btn.getAttribute("aria-expanded") === "true";
