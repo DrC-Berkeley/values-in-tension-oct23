@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,400&family=Public+Sans:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="styles.css?v=20261022-final">
+<link rel="stylesheet" href="styles.css?v=20261022-berkeley-final">
 </head>
 <body data-theme="light">
 <a class="skip" href="#stage">Skip to slide</a>
@@ -18,13 +18,14 @@
   <div class="tools">
     <button id="rbtn" type="button" class="tbtn" aria-label="Replay the campus drawing">Replay</button>
     <button id="mbtn" type="button" class="tbtn" aria-pressed="true" title="Turn page motion on or off (press M)">Motion<span id="mstate" class="mstate"></span></button>
+    <button id="startbtn" type="button" class="tbtn">Back to <span class="lbl2">start</span></button>
     <button id="agendabtn" type="button" class="tbtn">Agenda</button>
     <button id="ibtn" type="button" class="tbtn" aria-pressed="false" title="Instructor mode (press I). Not authentication.">Instructor</button>
   </div>
 </header>
 <main id="stage" class="stage" aria-live="off"></main>
 <footer class="bottom">
-  <div class="progress" aria-hidden="true"><div id="fill" class="fill"></div></div>
+  <div class="progress"><label class="sr" for="jump">Jump to slide</label><input id="jump" class="jump" type="range" min="1" max="22" step="1" value="1"><div id="fill" class="fill" hidden></div></div>
   <nav class="nav" aria-label="Slide navigation">
     <button id="prev" type="button" class="nbtn" aria-label="Previous slide">←<span class="lbl"> Back</span></button>
     <div id="ticks" class="ticks"></div>
@@ -34,9 +35,9 @@
 </footer>
 <div id="live" class="sr" role="status" aria-live="polite"></div>
 <noscript><p style="padding:2rem">This inquiry needs JavaScript. Poll links: see the instructor.</p></noscript>
-<script src="slides.js?v=20261022-final"></script>
-<script src="art.js?v=20261022-final"></script>
-<script src="motion.js?v=20261022-final"></script>
-<script src="app.js?v=20261022-final"></script>
+<script src="slides.js?v=20261022-berkeley-final"></script>
+<script src="art.js?v=20261022-berkeley-final"></script>
+<script src="motion.js?v=20261022-berkeley-final"></script>
+<script src="app.js?v=20261022-berkeley-final"></script>
 </body>
 </html>

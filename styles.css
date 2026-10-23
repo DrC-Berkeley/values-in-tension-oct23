@@ -46,15 +46,6 @@ a{color:var(--blue);text-decoration-thickness:2px;text-underline-offset:3px}
   .art{height:100%;width:auto;max-width:100%;position:static}
   .slide:not(.big) .art-wrap{display:none}
 }
-.a-far{fill:var(--blue);opacity:.16}.a-far2{fill:var(--blue);opacity:.32}.a-pale{fill:var(--pale)}.a-line{fill:none}
-.a-tower{fill:var(--blue)}.a-gold{fill:var(--gold)}.a-sun{fill:var(--gold)}.a-halo{fill:var(--gold);opacity:.22}
-.a-gap{fill:var(--pale)}.a-tick{fill:none;stroke:var(--navy);stroke-width:3;stroke-linecap:round}
-.a-iron{fill:none;stroke:var(--gold);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.a-col{fill:none;stroke:var(--blue);stroke-width:7;stroke-linecap:round}
-.a-lines .ln{fill:none;stroke:var(--gold);stroke-width:3.5;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
-.a-trail{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;stroke-dasharray:1 13}
-.slide.dark .a-far{fill:#0A3A6B;opacity:1}.slide.dark .a-far2{fill:#0C447C;opacity:1}.slide.dark .a-pale{fill:#14589A}
-.slide.dark .a-tower{fill:#0F4C85}.slide.dark .a-col{stroke:#0A3A6B}.slide.dark .a-gap{fill:#071F38}
 
 h1,h2,h3{font-family:var(--serif);line-height:1.08;letter-spacing:-.01em}
 h1{font-size:clamp(2rem,3.4vw+1rem,3.6rem);font-weight:700;color:var(--accent)}
@@ -121,7 +112,7 @@ h1{font-size:clamp(2rem,3.4vw+1rem,3.6rem);font-weight:700;color:var(--accent)}
 .agenda{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;align-items:end}
 .agenda a{display:flex;flex-direction:column;gap:3px;text-decoration:none;color:#000!important;height:100%;justify-content:flex-end;border-radius:4px;padding:2px}
 .agenda .bar{display:block;background:var(--blue);border-top:6px solid var(--gold);border-radius:3px 3px 0 0;transition:background .3s}
-.agenda a:hover .bar{background:#0A3A6B}
+.agenda a:hover .bar{opacity:.85}
 .agenda .here .bar{background:var(--gold);border-top-color:var(--blue)}
 .agenda .at{font-weight:700;font-size:.78rem;color:var(--blue);margin-top:6px}
 .agenda .an{font-family:var(--serif);font-weight:700;font-size:.98em;line-height:1.1}
@@ -250,16 +241,9 @@ body.nomotion .poll-btn:hover,body.nomotion .poll-btn:focus-visible,body.nomotio
 .event-info .check{font-style:italic;font-size:.9em}
 
 /* stronger Berkeley blue and gold art; Doe Library facade */
-.a-far{opacity:.3}.a-far2{opacity:.5}
-.a-mid{fill:var(--blue);opacity:.75}.a-wall{fill:var(--navy)}
-.a-colfill path{fill:var(--pale);stroke:var(--gold);stroke-width:2}
-.a-capital{fill:var(--gold)}
-.slide.dark .a-far{opacity:1}.slide.dark .a-far2{opacity:1}.slide.dark .a-mid{fill:#14589A;opacity:1}.slide.dark .a-wall{fill:#0A3A6B}
 .k-poll .rhythm{margin-top:clamp(40px,7vh,72px)}
 
 /* dark slides: brighter blues so the landmark reads clearly */
-.slide.dark .a-far{fill:#12497F}.slide.dark .a-far2{fill:#1A5EA0}.slide.dark .a-mid{fill:#2B78C4}.slide.dark .a-tower{fill:#1F6AB5}.slide.dark .a-wall{fill:#0E4A87}.slide.dark .a-pale{fill:#2B78C4}
-.slide.dark .a-lines .ln{stroke-width:4}
 /* video panel */
 .video{flex-direction:column;align-items:flex-start;gap:.8em}
 .video-head{display:flex;gap:1em;align-items:center}
@@ -304,11 +288,9 @@ img.cover{flex:0 0 auto;width:clamp(96px,14vw,140px);height:auto;aspect-ratio:au
 .example ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:.7em}
 .example li::marker{color:var(--gold)}
 /* gentle sun pulse: art only, off with Motion off or reduced motion, paused when offscreen */
-.a-arch{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .a-pulse{transform-box:fill-box;transform-origin:center;animation:sunpulse 7s ease-in-out 2.2s infinite}
 @keyframes sunpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 .art-off .a-pulse{animation-play-state:paused}
-.slide.dark .a-arch{stroke:var(--gold)}
 img.cover{background:none}
 .stage .slide{overflow-x:clip}
 
@@ -322,3 +304,76 @@ img.cover{background:none}
 .mstage svg{width:auto;height:auto;max-width:100%;max-height:clamp(220px,46vh,420px);aspect-ratio:800/420}
 .mcap{min-height:1.4em;font-size:1.05em}
 .a-pulse{overflow:visible}
+
+/* closing slides: Campanile and sun clearly separated; art nudged to the upper right of its rail */
+.k-reflect .art-wrap,.k-closing .art-wrap{justify-content:flex-end}
+.k-reflect .art,.k-closing .art{width:88%}
+.k-reflect .considerh{font-weight:700!important;font-size:1.2em;color:var(--blue);margin-top:1.5em!important;margin-bottom:.1em!important}
+.k-reflect .rhythm{margin-top:clamp(36px,6vh,64px)}
+
+/* latest visual preference: dark Berkeley blue/navy Campanile, restrained gold, muted gray band around a modest sun */
+
+/* ===== deck-wide illustration grammar: dark blue silhouettes, restrained gold, one independent sun ===== */
+/* ===== craft-floor cleanup: no hard offset shadows, no thick colored side borders ===== */
+.paper,.mstage,img.cover{box-shadow:0 8px 24px rgba(7,31,56,.14)}
+.excerpt{border-left:1px solid #cfc9b8;border-top:6px solid var(--gold)}
+.transition{border-left:0;border-top:4px solid var(--blue)}
+.source{border-left:0;padding-left:0;border-top:3px solid var(--gold);padding-top:.6em}
+.instructor .instr{border-left:2px solid var(--gold);border-top:6px solid var(--blue)}
+/* ===== jump-to-slide progress bar (native range) and back-to-start ===== */
+.progress{height:auto;background:none;padding:6px clamp(12px,3vw,40px) 0}
+.jump{--p:0%;-webkit-appearance:none;appearance:none;display:block;width:100%;height:28px;margin:0;background:transparent;cursor:pointer}
+.jump::-webkit-slider-runnable-track{height:8px;border-radius:4px;background:linear-gradient(to right,var(--gold) var(--p),color-mix(in srgb,currentColor 20%,transparent) var(--p))}
+.jump::-moz-range-track{height:8px;border-radius:4px;background:color-mix(in srgb,currentColor 20%,transparent)}
+.jump::-moz-range-progress{height:8px;border-radius:4px;background:var(--gold)}
+.jump::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-8px;border-radius:50%;background:var(--gold);border:3px solid var(--blue);box-shadow:0 2px 6px rgba(7,31,56,.3)}
+.jump::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--blue)}
+[data-theme="dark"] .jump::-webkit-slider-thumb{border-color:#fff}[data-theme="dark"] .jump::-moz-range-thumb{border-color:#fff}
+.jump:focus-visible{outline:3px solid var(--gold);outline-offset:4px;box-shadow:none;border-radius:6px}
+.fill{display:none}
+@media (max-width:700px){.tbtn{padding:0 8px}.top{flex-wrap:wrap}}
+.lbl2{display:inline}
+
+/* ===== FINAL ILLUSTRATION PALETTE (single authority) =====
+   Architecture: exact Berkeley Blue #003262 in light and dark. Gold #FDB515 only for small accents.
+   Dark background stays #071F38. Sun halo is a muted gray band. No other blues. */
+.art .a-far{fill:#003262;opacity:.16}
+.art-hills .a-far{opacity:.3}
+.art .a-tower,.art .a-mid,.art .a-wall{fill:#003262;opacity:1}
+.art .a-pale{fill:#FFF4D6}
+.art .a-gap{fill:#B8BEC8}
+.art .a-gold,.art .a-sun,.art .a-capital{fill:#FDB515}
+.art .a-halo{fill:#8A93A0;opacity:.32}
+.art .a-ring2{fill:none;stroke:#071F38;stroke-width:2}
+.art .a-tick{fill:none;stroke:#071F38;stroke-width:3;stroke-linecap:round}
+.art .a-rod,.art .a-arc{fill:none;stroke:#003262;stroke-linecap:round;stroke-linejoin:round}
+.art .a-rod{stroke-width:3}.art .a-arc{stroke-width:6}
+.art .a-bars,.art .a-trim,.art .a-arch,.art .a-iron{fill:none;stroke:#FDB515;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.art .a-colfill path{fill:#FFF4D6;stroke:#FDB515;stroke-width:1.5}
+.art .a-ground{fill:none;stroke:#003262;stroke-width:2;opacity:.35}
+.art .a-trail{fill:none;stroke:#FDB515;stroke-width:5;stroke-linecap:round;stroke-dasharray:1 13}
+.art .a-lines .ln{fill:none;stroke:#003262;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0;opacity:.9}
+/* dark slides: same blue; a pale hairline edge keeps the silhouette legible on #071F38 */
+.slide.dark .art .a-far{opacity:.7}
+.slide.dark .art .a-gap{fill:#071F38}
+.slide.dark .art .a-ground{stroke:#FFF4D6;opacity:.35}
+.slide.dark .art .a-rod,.slide.dark .art .a-arc{stroke:#003262}
+.slide.dark .art .a-lines .ln{stroke:#FFF4D6;stroke-width:1.5;opacity:.45}
+
+/* ===== editorial restraint: no campus art on reading, results, or content-heavy slides ===== */
+.slide.noart{grid-template-columns:minmax(0,1fr);justify-items:center}
+.slide.noart .inner{margin:0 auto}
+.k-excerpt .inner{max-width:46rem;gap:1.2em}
+.k-excerpt h1{font-size:clamp(1.8rem,2.4vw+1rem,2.8rem)}
+.excerpt{background:none;border:0;padding:0;margin:.6em 0 0;position:relative}
+.excerpt::before{content:"";display:block;width:64px;height:4px;background:var(--gold);margin-bottom:1.1em}
+.excerpt blockquote p{font-size:clamp(1.15rem,.6vw + 1.02rem,1.45rem);line-height:1.65;max-width:62ch}
+.excerpt figcaption{margin-top:1.4em;padding-top:0;border-top:0;font-size:.86em;line-height:1.55;color:#000}
+.k-excerpt .ask{background:none;color:#000;border-radius:0;border-top:1px solid #cfc9b8;padding:1.4em 0 0;margin-top:.8em}
+.k-excerpt .ask-h{color:var(--blue)}
+.k-excerpt .ask ul{padding-left:0;list-style:none;gap:.9em;font-size:1.08em}
+.k-excerpt .ask li{padding-left:1.1em;position:relative}
+.k-excerpt .ask li::before{content:"";position:absolute;left:0;top:.7em;width:.45em;height:.45em;border-radius:50%;background:var(--gold)}
+.k-discuss .inner{max-width:1040px;gap:1.3em}
+.k-discuss .dsteps{gap:1.4em}
+.k-cues .inner,.k-book .inner,.k-compare .inner,.k-thought .inner,.k-account .inner{max-width:900px}

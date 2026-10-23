@@ -3,86 +3,75 @@
    Every shape is drawn twice: a gold outline that "draws itself" once, then a filled silhouette fades in.
    Landmarks are original simplified drawings inspired by campus architecture, not official marks. */
 (function () {
-  const G = 400; // ground line y
-  // shape: [path d, fill class, drawn outline?]
+  /* One visual grammar for all five illustrations (400 x 440 frame):
+     - every landmark stands on the same baseline (y 372) and is scaled to a shared height, left of centre;
+     - one independent sun sits in the upper-right corner with clear space around it at full pulse;
+     - silhouettes are dark Berkeley blue/navy; gold is limited to small accents (clock, finial, lamps, path);
+     - the same soft hill band and dotted gold path sit under every landmark. */
+  const GROUND = 372, SUN = [338, 66, 20];
+  const BAND = "M0 342 Q90 318 190 336 T400 328 V372 H0Z";
+  const TRAIL = "M12 410 Q120 392 230 404 T388 396";
+  const colx = [90, 132, 174, 202, 244, 286];
   const SHAPES = {
-    /* Sather Tower (the Campanile): square shaft, open belfry, pyramid spire, clock face */
     campanile: {
-      label: "Illustration: the Campanile (Sather Tower) rising above rolling campus hills, with a golden path in the foreground.",
+      label: "Illustration: the Campanile (Sather Tower) in dark Berkeley blue with a gold clock face, standing on the campus hills.",
+      tx: 130, s: 0.8,
       shapes: [
-        ["M0 330 Q90 270 200 310 T400 290 V400 H0Z", "far", 0],
-        ["M150 400 V352 H250 V400Z", "tower", 1],
-        ["M172 352 V150 H228 V352Z", "tower", 1],
-        ["M160 150 H240 V132 H160Z", "tower", 1],
-        ["M170 132 V78 H230 V132Z", "tower", 1],
-        ["M166 78 H234 L200 24Z", "tower", 1],
-        ["M200 24 V6", "tower", 1]
+        ["M150 372 V332 H250 V372Z", "tower", 1], ["M172 332 V150 H228 V332Z", "tower", 1],
+        ["M160 150 H240 V132 H160Z", "tower", 1], ["M170 132 V78 H230 V132Z", "tower", 1], ["M166 78 H234 L200 24Z", "tower", 1]
       ],
-      details: `<circle class="a-gold a-fade" cx="200" cy="198" r="15"/><path class="a-tick" d="M200 198 V188 M200 198 H208"/>
-        <path class="a-gap" d="M180 128 V96 Q187 88 194 96 V128Z M206 128 V96 Q213 88 220 96 V128Z"/>`,
-      sun: [310, 120, 38], trail: "M10 424 Q120 392 230 410 T390 396"
+      details: `<path class="a-rod" d="M200 24 V6"/><circle class="a-gold" cx="200" cy="5" r="4"/>
+        <path class="a-gap" d="M180 128 V96 Q187 88 194 96 V128Z M206 128 V96 Q213 88 220 96 V128Z"/>
+        <circle class="a-gold" cx="200" cy="198" r="15"/><circle class="a-ring2" cx="200" cy="198" r="15"/><path class="a-tick" d="M200 198 V187 M200 198 H209"/>
+        <path class="a-trim" d="M152 340 H248 M162 150 H238"/>`
     },
-    /* Sather Gate: tall central pylons, wrought-iron arch with scrolls and a gold finial, flanking pedestrian gates */
     gate: {
-      label: "Illustration: a Sather Gate style entrance with four stone pylons, a wrought-iron central arch with scrollwork and a gold finial, and two flanking pedestrian gates.",
+      label: "Illustration: a Sather Gate style entrance in dark blue, with four stone pylons topped by gold lamps, two pedestrian gates, and a central wrought-iron arch with a gold finial.",
+      tx: 160, s: 0.8,
       shapes: [
-        ["M0 340 Q100 310 200 330 T400 322 V400 H0Z", "far", 0],
-        ["M22 400 V262 H62 V400Z", "tower", 1], ["M16 262 H68 V248 H16Z", "tower", 1],
-        ["M338 400 V262 H378 V400Z", "tower", 1], ["M332 262 H384 V248 H332Z", "tower", 1],
-        ["M98 400 V190 H146 V400Z", "tower", 1], ["M90 190 H154 V172 H90Z", "tower", 1],
-        ["M254 400 V190 H302 V400Z", "tower", 1], ["M246 190 H310 V172 H246Z", "tower", 1],
-        ["M62 330 Q80 296 98 330", "line", 1], ["M302 330 Q320 296 338 330", "line", 1],
-        ["M146 400 V250 Q200 140 254 250 V400", "line", 1]
+        ["M22 372 V234 H62 V372Z", "tower", 1], ["M16 234 H68 V220 H16Z", "tower", 1],
+        ["M338 372 V234 H378 V372Z", "tower", 1], ["M332 234 H384 V220 H332Z", "tower", 1],
+        ["M98 372 V162 H146 V372Z", "tower", 1], ["M90 162 H154 V144 H90Z", "tower", 1],
+        ["M254 372 V162 H302 V372Z", "tower", 1], ["M246 162 H310 V144 H246Z", "tower", 1]
       ],
-      details: `<circle class="a-gold a-fade" cx="122" cy="156" r="9"/><circle class="a-gold a-fade" cx="278" cy="156" r="9"/>
-        <circle class="a-gold a-fade" cx="42" cy="232" r="7"/><circle class="a-gold a-fade" cx="358" cy="232" r="7"/>
-        <path class="a-gold a-fade" d="M200 134 L211 158 L200 182 L189 158Z"/>
-        <path class="a-iron" d="M146 250 Q200 140 254 250 M158 250 Q200 160 242 250 M170 250 Q200 186 230 250"/>
-        <path class="a-iron" d="M146 250 H254 M168 250 V400 M184 250 V400 M200 250 V400 M216 250 V400 M232 250 V400"/>
-        <circle class="a-iron" cx="168" cy="224" r="9"/><circle class="a-iron" cx="232" cy="224" r="9"/>
-        <path class="a-iron" d="M98 312 H62 M338 312 H302 M80 312 V330 M320 312 V330"/>`,
-      sun: null, trail: "M0 424 Q100 396 200 410 T400 400"
+      details: `<path class="a-arc" d="M62 306 Q80 270 98 306 M302 306 Q320 270 338 306"/>
+        <path class="a-arc" d="M146 372 V232 Q200 120 254 232 V372"/>
+        <path class="a-bars" d="M146 232 H254 M168 232 V372 M184 232 V372 M200 232 V372 M216 232 V372 M232 232 V372"/>
+        <path class="a-bars" d="M158 232 Q200 146 242 232 M172 232 Q200 176 228 232"/>
+        <circle class="a-gold" cx="122" cy="134" r="8"/><circle class="a-gold" cx="278" cy="134" r="8"/><circle class="a-gold" cx="42" cy="210" r="6"/><circle class="a-gold" cx="358" cy="210" r="6"/>
+        <path class="a-gold" d="M200 132 L210 154 L200 176 L190 154Z"/>`
     },
-    /* Doe Library: pediment, colonnade, broad steps */
     library: {
-      label: "Illustration: the Doe Library facade in Berkeley blue and gold, with a triangular pediment, six columns and broad steps.",
+      label: "Illustration: a Doe Library style facade in dark blue, with a triangular pediment, six pale columns and broad steps.",
+      tx: 160, s: 0.8,
       shapes: [
-        ["M0 330 Q100 300 200 320 T400 310 V400 H0Z", "far", 0],
-        ["M30 400 V386 H370 V400Z", "tower", 1], ["M48 386 V372 H352 V386Z", "tower", 1],
-        ["M70 372 V176 H330 V372Z", "wall", 1],
-        ["M44 176 H356 V154 H44Z", "tower", 1],
-        ["M56 154 L200 82 L344 154Z", "tower", 1]
+        ["M36 372 V358 H364 V372Z", "tower", 1], ["M54 358 V344 H346 V358Z", "tower", 1],
+        ["M70 344 V176 H330 V344Z", "wall", 1], ["M44 176 H356 V156 H44Z", "tower", 1], ["M56 156 L200 88 L344 156Z", "tower", 1]
       ],
-      details: `<path class="a-iron" d="M92 146 L200 98 L308 146Z"/>
-        <circle class="a-gold a-fade" cx="200" cy="128" r="11"/>
-        <g class="a-colfill"><path d="M90 372 V196 H114 V372Z"/><path d="M132 372 V196 H156 V372Z"/><path d="M174 372 V196 H198 V372Z"/><path d="M202 372 V196 H226 V372Z"/><path d="M244 372 V196 H268 V372Z"/><path d="M286 372 V196 H310 V372Z"/></g>
-        <path class="a-capital" d="M86 196 H118 V186 H86Z M128 196 H160 V186 H128Z M170 196 H202 V186 H170Z M198 196 H230 V186 H198Z M240 196 H272 V186 H240Z M282 196 H314 V186 H282Z"/>`,
-      sun: null, trail: "M0 424 H400"
+      details: `<path class="a-bars" d="M96 148 L200 102 L304 148Z"/><circle class="a-gold" cx="200" cy="132" r="10"/>
+        <g class="a-colfill">${colx.map((x) => `<path d="M${x} 344 V196 H${x + 24} V344Z"/>`).join("")}</g>
+        <path class="a-capital" d="${colx.map((x) => `M${x - 4} 196 H${x + 28} V187 H${x - 4}Z`).join(" ")}"/>`
     },
-    /* Memorial Stadium: an oval bowl with tiered seating, a field, and an arched outer wall */
     stadium: {
-      label: "Illustration: a Memorial Stadium style oval bowl in Berkeley blue and gold, with curved tiers of seating around a pale field and an arched outer wall.",
+      label: "Illustration: a Memorial Stadium style oval bowl in dark blue, with curved tiers of seating around a pale field and an arched outer wall.",
+      tx: 162, s: 0.8,
       shapes: [
-        ["M0 330 Q100 300 200 320 T400 310 V400 H0Z", "far", 0],
-        ["M20 240 V330 Q20 372 200 372 Q380 372 380 330 V240Z", "wall", 1],
-        ["M20 240 A180 66 0 1 0 380 240 A180 66 0 1 0 20 240Z", "tower", 1],
-        ["M50 240 A150 50 0 1 0 350 240 A150 50 0 1 0 50 240Z", "mid", 1],
-        ["M96 240 A104 32 0 1 0 304 240 A104 32 0 1 0 96 240Z", "pale", 1]
+        ["M20 262 V372 H380 V262Z", "wall", 1],
+        ["M20 262 A180 62 0 1 0 380 262 A180 62 0 1 0 20 262Z", "tower", 1],
+        ["M52 262 A148 47 0 1 0 348 262 A148 47 0 1 0 52 262Z", "mid", 1],
+        ["M98 262 A102 30 0 1 0 302 262 A102 30 0 1 0 98 262Z", "pale", 1]
       ],
-      details: `<path class="a-iron" d="M30 240 A170 60 0 1 0 370 240 A170 60 0 1 0 30 240Z M70 240 A130 42 0 1 0 330 240 A130 42 0 1 0 70 240Z"/>
-        <path class="a-iron" d="M200 218 V262 M150 224 V258 M250 224 V258 M96 240 H304"/>
-        <path class="a-arch" d="M44 372 V338 Q56 320 68 338 V372 M96 378 V346 Q108 328 120 346 V378 M148 382 V350 Q160 332 172 350 V382 M228 382 V350 Q240 332 252 350 V382 M280 378 V346 Q292 328 304 346 V378 M332 372 V338 Q344 320 356 338 V372"/>`,
-      sun: null, trail: "M0 424 Q100 398 200 412 T400 402"
+      details: `<path class="a-bars" d="M30 262 A170 57 0 1 0 370 262 A170 57 0 1 0 30 262Z M75 262 A125 40 0 1 0 325 262 A125 40 0 1 0 75 262Z M200 242 V282 M150 247 V277 M250 247 V277 M98 262 H302"/>
+        <path class="a-arch" d="${Array.from({ length: 7 }, (_, i) => { const x = 36 + i * 48; return `M${x} 372 V342 Q${x + 12} 326 ${x + 24} 342 V372`; }).join(" ")}"/>`
     },
-    /* Berkeley hills: ascending, winding path to a gold marker */
     hills: {
-      label: "Illustration: rolling Berkeley hills at sunrise with a winding path climbing to a gold marker.",
+      label: "Illustration: rolling Berkeley hills in dark blue with a winding path climbing to a gold marker.",
+      tx: 200, s: 1, noBand: true, trail: "M24 404 Q110 366 170 348 T270 312 T330 262 T352 204",
       shapes: [
-        ["M0 300 Q90 180 200 250 T400 200 V400 H0Z", "far", 0],
-        ["M0 360 Q120 250 250 320 T400 280 V400 H0Z", "tower", 1]
+        ["M0 306 Q90 196 200 268 T400 226 V372 H0Z", "far", 0],
+        ["M0 372 V334 Q120 270 250 322 T400 298 V372Z", "tower", 1]
       ],
-      details: `<circle class="a-gold a-fade" cx="350" cy="168" r="9"/>`,
-      sun: [305, 112, 40], trail: "M30 420 Q110 380 170 360 T270 316 T330 256 T350 168"
+      details: `<circle class="a-gold" cx="352" cy="196" r="8"/>`
     }
   };
 
@@ -91,10 +80,12 @@
     let i = 0;
     const lines = a.shapes.filter((s) => s[2]).map((s) => `<path class="ln" pathLength="1" style="--i:${i++}" d="${s[0]}"/>`).join("");
     const fills = a.shapes.map((s) => `<path class="a-${s[1]}" d="${s[0]}"/>`).join("");
-    const sun = a.sun ? `<g class="a-pulse"><circle class="a-halo a-fade" cx="${a.sun[0]}" cy="${a.sun[1]}" r="${a.sun[2] * 2}"/><circle class="a-sun a-fade" cx="${a.sun[0]}" cy="${a.sun[1]}" r="${a.sun[2]}"/></g>` : "";
-    return `<svg class="art" role="img" aria-label="${a.label}" viewBox="0 0 400 440" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-      ${sun}<g class="a-fills a-fade">${fills}</g><g class="a-details a-fade">${a.details}</g><g class="a-lines">${lines}</g>
-      <path class="a-trail" d="${a.trail}"/></svg>`;
+    const T = `transform="translate(${a.tx} ${GROUND}) scale(${a.s}) translate(-200 ${-GROUND})"`;
+    const sun = `<g class="a-pulse"><circle class="a-halo a-fade" cx="${SUN[0]}" cy="${SUN[1]}" r="${SUN[2] * 2}"/><circle class="a-sun a-fade" cx="${SUN[0]}" cy="${SUN[1]}" r="${SUN[2]}"/></g>`;
+    const base = a.noBand ? "" : `<path class="a-far" d="${BAND}"/>`;
+    return `<svg class="art art-${key}" role="img" aria-label="${a.label}" viewBox="0 0 400 440" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+      ${sun}${base}<g ${T}><g class="a-fills a-fade">${fills}</g><g class="a-details a-fade">${a.details}</g><g class="a-lines">${lines}</g></g>
+      <path class="a-ground" d="M0 ${GROUND} H400"/><path class="a-trail" d="${a.trail || TRAIL}"/></svg>`;
   }
 
   const art = {};

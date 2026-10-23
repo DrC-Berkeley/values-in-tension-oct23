@@ -292,7 +292,7 @@ window.SLIDES = [
     { t: "p", text: "This is an important starting point for participatory inquiry." },
     { t: "q", text: "Inquiry doesn't end when we collect responses. It continues when we interpret what we're learning with the people whose experiences are involved." },
     { t: "p", text: "Next week, Professor G will help us explore participatory action research more explicitly." },
-    { t: "p", text: "Consider:" },
+    { t: "h", text: "Consider:" },
     { t: "list", items: [
       "Whose perspectives are missing from our understanding?",
       "What assumptions might we need to reconsider?",

@@ -4,6 +4,7 @@
   const S = window.SLIDES, SEC = window.SECTIONS, L = window.LINKS, P = window.POLLS, R = window.RHYTHM;
   const $ = (s, r) => (r || document).querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const NOART = ["excerpt", "discuss", "cues", "book", "compare", "access", "motion", "assignment", "account", "thought"]; // reading, results, and content-heavy slides carry no campus art
   const idx = (id) => S.findIndex((s) => s.id === id);
   const ext = (href, label) => `<a class="ext" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}<span class="sr"> (opens in a new tab)</span><span aria-hidden="true"> ↗</span></a>`;
   const linkOf = (k) => L[k] || k;
@@ -15,6 +16,7 @@
   /* ---------- block renderers ---------- */
   const B = {
     p: (b) => `<p class="rv">${esc(b.text)}</p>`,
+    h: (b) => `<p class="considerh rv">${esc(b.text)}</p>`,
     lead: (b) => `<p class="lead rv">${esc(b.text)}</p>`,
     note: (b) => `<p class="note rv">${esc(b.text)}</p>`,
     q: (b) => `<div class="keyq rv">${b.label ? `<span class="keyq-label">${esc(b.label)}</span>` : ""}<p>${esc(b.text)}</p>${b.sub ? `<p class="keyq-sub">${esc(b.sub)}</p>` : ""}</div>`,
@@ -103,7 +105,8 @@
     const artKey = sec.art;
     const ins = s.instructor || {};
     const pollRes = ins.poll ? `<p><a class="ext" href="${esc(P[ins.poll].results)}" target="_blank" rel="noopener noreferrer">Open Form ${ins.poll} results ↗</a></p>` : "";
-    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${["agenda", "assignment"].includes(s.kind) ? " wide" : ""}" data-section="${s.section}">
+    const noArt = NOART.includes(s.kind);
+    return `<div class="slide k-${s.kind} ${s.theme}${big ? " big" : ""}${s.kind === "agenda" ? " wide" : ""}${noArt ? " noart" : ""}" data-section="${s.section}">
       <div class="inner">
         ${s.kicker ? `<p class="kicker rv">${esc(s.kicker)}</p>` : ""}
         <h1 class="rv" id="slide-title" tabindex="-1">${esc(s.title)}</h1>
@@ -111,7 +114,7 @@
         ${s.blocks.map((b) => B[b.t](b)).join("")}
         ${rhythmStrip(s.rhythm)}
       </div>
-      <div class="art-wrap${replay || sameArt ? (replay ? "" : " art-static") : ""}">${window.ART[artKey]()}</div>
+      ${noArt ? "" : `<div class="art-wrap${replay || sameArt ? (replay ? "" : " art-static") : ""}">${window.ART[artKey]()}</div>`}
       <aside class="instr" aria-label="Instructor notes">
         <p class="instr-h">Instructor · ${esc(sec.label)} · ${sec.time}</p>
         <p><strong>Purpose.</strong> ${esc(sec.purpose)}</p>
@@ -137,12 +140,13 @@
   function render(first) {
     const s = S[cur], stage = $("#stage");
     const artKey = SEC[s.section].art;
-    sameArt = !first && prevArt === artKey;
+    const shown = !NOART.includes(s.kind);
+    sameArt = !first && shown && prevArt === artKey;
     document.title = s.id === "0-1" ? "Values in Tension · Who Are We Becoming?" : `${s.title} · Values in Tension`;
     if (window.MotionDemo) window.MotionDemo.cleanup();
     stage.innerHTML = slideHTML(s);
     if (window.MotionDemo && s.kind === "motion") window.MotionDemo.mount(stage);
-    prevArt = artKey; replay = false;
+    prevArt = shown ? artKey : null; replay = false;
     stage.className = "stage anim";
     stage.style.setProperty("--dx", dir * 28 + "px");
     document.body.dataset.theme = s.theme;
@@ -156,7 +160,9 @@
       if (i === cur) t.setAttribute("aria-current", "step"); else t.removeAttribute("aria-current");
     });
     document.querySelectorAll(".seg").forEach((g) => g.classList.toggle("now", +g.dataset.sec === s.section));
-    $("#fill").style.width = ((cur + 1) / S.length * 100) + "%";
+    const jr = $("#jump"); jr.max = S.length; jr.value = cur + 1;
+    jr.style.setProperty("--p", (cur / (S.length - 1) * 100) + "%");
+    jr.setAttribute("aria-valuetext", `Slide ${cur + 1} of ${S.length}: ${s.title}`);
     $("#live").textContent = `Slide ${cur + 1} of ${S.length}: ${s.title}`;
     stage.querySelectorAll(".rv").forEach((n, i) => n.style.setProperty("--d", Math.min(i, 12) * 60 + "ms"));
     if (artObs) artObs.disconnect();
@@ -164,7 +170,7 @@
       artObs = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle("art-off", !e.isIntersecting)));
       const aw = stage.querySelector(".art-wrap"); if (aw) artObs.observe(aw);
     }
-    if (!first) { const h = $("#slide-title"); if (h) h.focus({ preventScroll: true }); }
+    if (!first && document.activeElement !== $("#jump")) { const h = $("#slide-title"); if (h) h.focus({ preventScroll: true }); }
   }
 
   function go(i) {
@@ -209,6 +215,18 @@
     $("#prev").addEventListener("click", () => go(cur - 1));
     $("#next").addEventListener("click", () => go(cur + 1));
     $("#agendabtn").addEventListener("click", () => { location.hash = "0-3"; });
+    $("#startbtn").addEventListener("click", () => { location.hash = "0-1"; if (cur === 0) render(); });
+    const jr = $("#jump"); let dragFrom = null;
+    jr.addEventListener("pointerdown", () => { dragFrom = S[cur].id; });
+    jr.addEventListener("input", () => {
+      const id = S[+jr.value - 1].id;
+      if (dragFrom) { history.replaceState(null, "", "#" + id); fromHash(false); } else go(+jr.value - 1);
+    });
+    const endDrag = () => {
+      if (!dragFrom) return; const final = S[cur].id, from = dragFrom; dragFrom = null;
+      if (final !== from) { history.replaceState(null, "", "#" + from); location.hash = final; }
+    };
+    jr.addEventListener("pointerup", endDrag); jr.addEventListener("pointercancel", endDrag); jr.addEventListener("change", endDrag);
     $("#ibtn").addEventListener("click", () => setInstructor(!instructor));
     $("#mbtn").addEventListener("click", () => setMotion(!motion));
     $("#rbtn").addEventListener("click", () => { replay = true; render(); });
