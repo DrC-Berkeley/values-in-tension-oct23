@@ -539,3 +539,8 @@ img.cover{background:none}
 
 .turns .tlink{margin:.3em 0 0;font-size:.78em}
 .k-thought .linkrow{font-size:.9em;margin:0}
+
+/* Align measure definitions and example dividers across both columns. */
+.measures{grid-template-rows:auto auto auto;row-gap:0}
+.measures section{display:grid;grid-row:span 3;grid-template-rows:subgrid}
+@media (max-width:700px){.measures{grid-template-rows:none;row-gap:18px}.measures section{display:block;grid-row:auto}}
